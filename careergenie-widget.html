@@ -1,0 +1,2131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Career Genie Kenya</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,800;1,9..144,300&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════
+   CAREER GENIE KENYA — WORDPRESS WIDGET SYSTEM
+   v3.0 — Full AI Engine + Soma + Parents Blog
+   Embed via: <div id="cg-root"></div>
+   Then include this file's <style> + <script>
+═══════════════════════════════════════════════ */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --cg-gold: #C8922A;
+  --cg-gold-lt: #FDF0D5;
+  --cg-gold-dk: #7A5418;
+  --cg-forest: #1A5C38;
+  --cg-forest-lt: #D6EDE1;
+  --cg-forest-md: #2A8A55;
+  --cg-ink: #0F1923;
+  --cg-slate: #344054;
+  --cg-mist: #F8F6F1;
+  --cg-bone: #EDE9E0;
+  --cg-sky: #1B5FA3;
+  --cg-sky-lt: #DBE9F8;
+  --cg-crimson: #A02020;
+  --cg-crimson-lt: #F7DEDE;
+  --cg-violet: #5C3D9E;
+  --cg-violet-lt: #EDE8FA;
+  --cg-white: #FFFFFF;
+  --cg-border: rgba(15,25,35,0.08);
+  --cg-shadow: 0 4px 24px rgba(15,25,35,0.08);
+  --cg-shadow-lg: 0 12px 48px rgba(15,25,35,0.14);
+  --fd: 'Fraunces', Georgia, serif;
+  --fb: 'Space Grotesk', sans-serif;
+  --radius: 16px;
+  --radius-sm: 10px;
+  --radius-pill: 999px;
+}
+
+/* ── WIDGET ROOT ── */
+#cg-root {
+  font-family: var(--fb);
+  color: var(--cg-ink);
+  background: var(--cg-mist);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
+}
+
+/* ── LOADER ── */
+#cg-loader {
+  position: fixed; inset: 0;
+  background: var(--cg-ink);
+  z-index: 9999;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 20px;
+  transition: opacity 0.7s ease;
+}
+#cg-loader.out { opacity: 0; pointer-events: none; }
+.cg-loader-mark {
+  width: 72px; height: 72px;
+  border: 2px solid var(--cg-gold);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--fd);
+  font-size: 28px; font-weight: 800;
+  color: var(--cg-gold);
+  animation: cg-spin-in 0.8s ease forwards;
+  letter-spacing: -1px;
+}
+@keyframes cg-spin-in {
+  from { transform: scale(0.5) rotate(-20deg); opacity: 0; }
+  to { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+.cg-loader-title {
+  font-family: var(--fd); font-size: 26px; font-weight: 600;
+  color: var(--cg-white); letter-spacing: -0.5px;
+}
+.cg-loader-sub { font-size: 13px; color: rgba(255,255,255,0.35); letter-spacing: 0.5px; }
+.cg-loader-bar {
+  width: 180px; height: 2px;
+  background: rgba(255,255,255,0.1); border-radius: 99px; overflow: hidden;
+}
+.cg-loader-fill {
+  height: 100%; width: 0%;
+  background: linear-gradient(90deg, var(--cg-gold), var(--cg-forest-md));
+  border-radius: 99px;
+  animation: cg-load 2.2s ease-out forwards;
+}
+@keyframes cg-load { to { width: 100%; } }
+
+/* ── NAV ── */
+#cg-nav {
+  background: var(--cg-ink);
+  position: sticky; top: 0; z-index: 200;
+  border-bottom: 1px solid rgba(200, 146, 42, 0.3);
+}
+.cg-nav-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: flex; align-items: center;
+  justify-content: space-between;
+  padding: 0 28px; height: 60px;
+}
+.cg-logo {
+  display: flex; align-items: baseline; gap: 3px;
+  font-family: var(--fd); font-size: 22px; font-weight: 800;
+  color: var(--cg-white); cursor: pointer;
+  letter-spacing: -0.5px;
+  text-decoration: none;
+}
+.cg-logo-accent { color: var(--cg-gold); font-style: italic; }
+.cg-logo-flag { font-size: 14px; margin-left: 6px; }
+.cg-nav-links { display: flex; gap: 2px; align-items: center; }
+.cg-navbtn {
+  background: none; border: none;
+  font-family: var(--fb); font-size: 13px; font-weight: 500;
+  color: rgba(255,255,255,0.5);
+  padding: 6px 14px; border-radius: var(--radius-pill);
+  cursor: pointer; transition: all 0.18s;
+  display: flex; align-items: center; gap: 6px;
+  white-space: nowrap;
+}
+.cg-navbtn:hover { color: var(--cg-white); background: rgba(255,255,255,0.07); }
+.cg-navbtn.cg-active { color: var(--cg-gold); background: rgba(200,146,42,0.12); }
+.cg-navbtn .cg-nb-icon { font-size: 15px; }
+.cg-hamburger {
+  display: none; background: none; border: none;
+  color: var(--cg-white); font-size: 22px; cursor: pointer; padding: 4px;
+}
+.cg-mobile-nav {
+  display: none; background: var(--cg-ink);
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding: 12px 20px 16px;
+  flex-direction: column; gap: 4px;
+}
+.cg-mobile-nav.open { display: flex; }
+.cg-mobile-nav .cg-navbtn {
+  border-radius: var(--radius-sm); padding: 11px 14px;
+  justify-content: flex-start;
+}
+
+/* ── PAGES ── */
+.cg-page { display: none; }
+.cg-page.cg-active { display: block; }
+
+/* ── SHARED COMPONENTS ── */
+.cg-section { max-width: 1200px; margin: 0 auto; padding: 60px 28px; }
+.cg-section-sm { max-width: 760px; margin: 0 auto; padding: 48px 28px 80px; }
+
+.cg-page-header {
+  margin-bottom: 40px;
+}
+.cg-page-tag {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: var(--cg-gold-lt);
+  color: var(--cg-gold-dk);
+  border-radius: var(--radius-pill);
+  padding: 5px 14px;
+  font-size: 11px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.8px;
+  margin-bottom: 14px;
+}
+.cg-page-title {
+  font-family: var(--fd);
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 800; color: var(--cg-ink);
+  letter-spacing: -1px; line-height: 1.1;
+  margin-bottom: 10px;
+}
+.cg-page-title em { font-style: italic; color: var(--cg-gold); }
+.cg-page-sub { font-size: 15px; color: var(--cg-slate); line-height: 1.65; font-weight: 300; }
+
+.cg-card {
+  background: var(--cg-white);
+  border: 0.5px solid var(--cg-border);
+  border-radius: var(--radius);
+  padding: 24px;
+}
+.cg-card-title {
+  font-family: var(--fd); font-size: 16px; font-weight: 600;
+  color: var(--cg-ink); margin-bottom: 16px;
+  display: flex; align-items: center; gap: 8px;
+}
+.cg-card-title::before {
+  content: ''; width: 3px; height: 18px;
+  background: var(--cg-gold); border-radius: 2px;
+  flex-shrink: 0;
+}
+.cg-divider { height: 0.5px; background: var(--cg-bone); margin: 16px 0; }
+
+.cg-chip {
+  display: inline-flex; align-items: center;
+  border-radius: var(--radius-pill);
+  padding: 4px 12px; font-size: 12px; font-weight: 500;
+}
+.cg-chip.gold { background: var(--cg-gold-lt); color: var(--cg-gold-dk); }
+.cg-chip.green { background: var(--cg-forest-lt); color: var(--cg-forest); }
+.cg-chip.sky { background: var(--cg-sky-lt); color: var(--cg-sky); }
+.cg-chip.crimson { background: var(--cg-crimson-lt); color: var(--cg-crimson); }
+.cg-chip.violet { background: var(--cg-violet-lt); color: var(--cg-violet); }
+
+.cg-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 28px; border-radius: var(--radius-pill);
+  font-family: var(--fb); font-size: 14px; font-weight: 600;
+  cursor: pointer; border: none; transition: all 0.2s;
+  text-decoration: none;
+}
+.cg-btn-primary {
+  background: var(--cg-ink); color: var(--cg-white);
+}
+.cg-btn-primary:hover { background: var(--cg-slate); transform: translateY(-1px); box-shadow: var(--cg-shadow); }
+.cg-btn-gold {
+  background: var(--cg-gold); color: var(--cg-ink);
+}
+.cg-btn-gold:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(200,146,42,0.4); }
+.cg-btn-outline {
+  background: transparent; color: var(--cg-ink);
+  border: 1.5px solid var(--cg-bone);
+}
+.cg-btn-outline:hover { border-color: var(--cg-ink); }
+
+/* Skeleton loader */
+.cg-skel {
+  background: linear-gradient(90deg, var(--cg-bone) 25%, #f5f2eb 50%, var(--cg-bone) 75%);
+  background-size: 200% 100%;
+  animation: cg-shimmer 1.4s infinite;
+  border-radius: 6px;
+}
+@keyframes cg-shimmer { to { background-position: -200% 0; } }
+.cg-skel-line { height: 13px; margin-bottom: 10px; }
+.cg-skel-line.w90 { width: 90%; }
+.cg-skel-line.w70 { width: 70%; }
+.cg-skel-line.w80 { width: 80%; }
+.cg-skel-line.w50 { width: 50%; }
+
+/* ════════════════════════════════════════════
+   PAGE 1 — HOME
+════════════════════════════════════════════ */
+.cg-hero {
+  background: var(--cg-ink);
+  min-height: calc(100vh - 60px);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 80px 28px;
+  position: relative; overflow: hidden;
+  text-align: center;
+}
+.cg-hero-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(200,146,42,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(200,146,42,0.05) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+.cg-hero-glow {
+  position: absolute;
+  width: 700px; height: 700px;
+  background: radial-gradient(ellipse, rgba(200,146,42,0.08) 0%, transparent 65%);
+  top: 50%; left: 50%; transform: translate(-50%, -50%);
+}
+.cg-hero-content { position: relative; z-index: 2; max-width: 760px; }
+.cg-hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(200,146,42,0.12);
+  border: 1px solid rgba(200,146,42,0.25);
+  border-radius: var(--radius-pill); padding: 6px 16px;
+  font-size: 11px; color: var(--cg-gold);
+  font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
+  margin-bottom: 28px;
+}
+.cg-hero-title {
+  font-family: var(--fd); font-size: clamp(44px, 8vw, 80px);
+  font-weight: 800; color: var(--cg-white);
+  line-height: 1.0; letter-spacing: -2.5px;
+  margin-bottom: 24px;
+}
+.cg-hero-title em { font-style: italic; color: var(--cg-gold); }
+.cg-hero-sub {
+  font-size: 17px; color: rgba(255,255,255,0.55);
+  line-height: 1.7; max-width: 560px; margin: 0 auto 44px;
+  font-weight: 300;
+}
+.cg-hero-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 72px; }
+.cg-hero-stats {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 1px; max-width: 600px; margin: 0 auto;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--radius); overflow: hidden;
+}
+.cg-hero-stat {
+  padding: 24px 16px; text-align: center;
+  background: rgba(255,255,255,0.03);
+}
+.cg-stat-num {
+  font-family: var(--fd); font-size: 32px; font-weight: 800;
+  color: var(--cg-gold); display: block; letter-spacing: -1px;
+}
+.cg-stat-label { font-size: 11px; color: rgba(255,255,255,0.35); margin-top: 4px; letter-spacing: 0.3px; }
+
+/* Platform sections */
+.cg-platform {
+  background: var(--cg-white);
+  border-top: 1px solid var(--cg-bone);
+}
+.cg-platform-inner {
+  max-width: 1200px; margin: 0 auto;
+  padding: 80px 28px;
+}
+.cg-platform-label {
+  font-size: 11px; font-weight: 600; letter-spacing: 1px;
+  text-transform: uppercase; color: var(--cg-gold-dk);
+  margin-bottom: 12px;
+}
+.cg-platform-title {
+  font-family: var(--fd); font-size: clamp(26px, 3.5vw, 38px);
+  font-weight: 800; color: var(--cg-ink);
+  letter-spacing: -1px; margin-bottom: 48px;
+}
+.cg-modules-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+}
+.cg-module-card {
+  border: 1px solid var(--cg-bone);
+  border-radius: var(--radius); padding: 28px;
+  cursor: pointer; transition: all 0.22s;
+  position: relative; overflow: hidden;
+}
+.cg-module-card::after {
+  content: ''; position: absolute;
+  bottom: 0; left: 0; right: 0; height: 3px;
+  transform: scaleX(0); transition: transform 0.22s;
+  transform-origin: left;
+}
+.cg-module-card.student::after { background: var(--cg-gold); }
+.cg-module-card.soma::after { background: var(--cg-forest-md); }
+.cg-module-card.parents::after { background: var(--cg-sky); }
+.cg-module-card:hover { transform: translateY(-4px); box-shadow: var(--cg-shadow-lg); }
+.cg-module-card:hover::after { transform: scaleX(1); }
+.cg-module-icon {
+  width: 52px; height: 52px; border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px; margin-bottom: 20px;
+}
+.cg-module-card.student .cg-module-icon { background: var(--cg-gold-lt); }
+.cg-module-card.soma .cg-module-icon { background: var(--cg-forest-lt); }
+.cg-module-card.parents .cg-module-icon { background: var(--cg-sky-lt); }
+.cg-module-title {
+  font-family: var(--fd); font-size: 20px; font-weight: 700;
+  color: var(--cg-ink); margin-bottom: 10px; letter-spacing: -0.3px;
+}
+.cg-module-desc { font-size: 14px; color: var(--cg-slate); line-height: 1.65; margin-bottom: 20px; }
+.cg-module-arrow {
+  font-size: 13px; font-weight: 600; color: var(--cg-slate);
+  display: flex; align-items: center; gap: 6px;
+  transition: gap 0.2s;
+}
+.cg-module-card:hover .cg-module-arrow { gap: 10px; }
+
+.cg-home-footer {
+  background: var(--cg-ink); padding: 44px 28px; text-align: center;
+  border-top: 1px solid rgba(200,146,42,0.2);
+}
+.cg-home-footer-logo {
+  font-family: var(--fd); font-size: 22px; font-weight: 800;
+  color: var(--cg-white); letter-spacing: -0.5px; margin-bottom: 10px;
+}
+.cg-home-footer-logo em { font-style: italic; color: var(--cg-gold); }
+.cg-home-footer p { font-size: 13px; color: rgba(255,255,255,0.3); }
+
+/* ════════════════════════════════════════════
+   PAGE 2 — STUDENT PROFILE + AI DASHBOARD
+════════════════════════════════════════════ */
+
+/* Setup Wizard */
+.cg-wizard { max-width: 740px; margin: 0 auto; padding: 48px 28px 80px; }
+.cg-wizard-header { text-align: center; margin-bottom: 40px; }
+.cg-wizard-steps {
+  display: flex; align-items: center; justify-content: center;
+  gap: 0; margin-bottom: 40px;
+}
+.cg-wstep {
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  flex: 1; position: relative; max-width: 140px;
+}
+.cg-wstep-dot {
+  width: 32px; height: 32px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700;
+  background: var(--cg-bone); color: var(--cg-slate);
+  border: 2px solid var(--cg-bone);
+  transition: all 0.3s; z-index: 1;
+}
+.cg-wstep.done .cg-wstep-dot { background: var(--cg-forest-md); color: var(--cg-white); border-color: var(--cg-forest-md); }
+.cg-wstep.active .cg-wstep-dot { background: var(--cg-ink); color: var(--cg-white); border-color: var(--cg-ink); box-shadow: 0 0 0 4px rgba(15,25,35,0.12); }
+.cg-wstep-label { font-size: 11px; color: var(--cg-slate); font-weight: 500; text-align: center; }
+.cg-wstep.active .cg-wstep-label { color: var(--cg-ink); font-weight: 600; }
+.cg-wstep-line {
+  flex: 1; height: 2px; background: var(--cg-bone);
+  position: absolute; top: 16px; left: calc(50% + 16px);
+  width: calc(100% - 32px);
+}
+.cg-wstep.done .cg-wstep-line { background: var(--cg-forest-md); }
+
+.cg-fsec {
+  background: var(--cg-white); border: 0.5px solid var(--cg-border);
+  border-radius: var(--radius); padding: 28px; margin-bottom: 18px;
+}
+.cg-fsec-title {
+  font-family: var(--fd); font-size: 18px; font-weight: 700;
+  color: var(--cg-ink); margin-bottom: 20px;
+  display: flex; align-items: center; gap: 10px;
+}
+.cg-fsec-title .cg-sec-num {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--cg-gold-lt); color: var(--cg-gold-dk);
+  font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.cg-label {
+  display: block; font-size: 11px; font-weight: 600;
+  color: #666; text-transform: uppercase; letter-spacing: 0.7px;
+  margin-bottom: 7px;
+}
+.cg-input, .cg-select, .cg-textarea {
+  width: 100%; padding: 11px 15px;
+  border: 1px solid var(--cg-bone); border-radius: var(--radius-sm);
+  font-family: var(--fb); font-size: 14px; color: var(--cg-ink);
+  background: var(--cg-mist); outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  appearance: none; -webkit-appearance: none;
+}
+.cg-input:focus, .cg-select:focus, .cg-textarea:focus {
+  border-color: var(--cg-gold); background: var(--cg-white);
+  box-shadow: 0 0 0 3px rgba(200,146,42,0.1);
+}
+.cg-textarea { resize: vertical; line-height: 1.6; min-height: 90px; }
+.cg-frow { margin-bottom: 16px; }
+.cg-fgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+.cg-int-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+.cg-int-btn {
+  padding: 7px 15px; border-radius: var(--radius-pill);
+  border: 1px solid var(--cg-bone); background: var(--cg-mist);
+  font-size: 13px; color: var(--cg-ink); cursor: pointer;
+  font-family: var(--fb); transition: all 0.15s;
+}
+.cg-int-btn:hover { border-color: var(--cg-gold); }
+.cg-int-btn.on { background: var(--cg-ink); color: var(--cg-white); border-color: var(--cg-ink); }
+
+.cg-grade-rows { display: flex; flex-direction: column; gap: 10px; }
+.cg-grade-row { display: grid; grid-template-columns: 1fr 1fr 36px; gap: 10px; align-items: center; }
+.cg-grade-del {
+  background: var(--cg-crimson-lt); color: var(--cg-crimson);
+  border: none; border-radius: 8px; width: 36px; height: 36px;
+  font-size: 18px; cursor: pointer; display: flex;
+  align-items: center; justify-content: center; flex-shrink: 0;
+}
+.cg-add-row-btn {
+  width: 100%; margin-top: 10px; padding: 10px;
+  background: none; border: 1.5px dashed var(--cg-bone);
+  border-radius: var(--radius-sm); font-family: var(--fb);
+  font-size: 13px; color: var(--cg-slate); cursor: pointer;
+  transition: all 0.15s;
+}
+.cg-add-row-btn:hover { border-color: var(--cg-gold); color: var(--cg-gold-dk); }
+
+.cg-goal-opts { display: flex; flex-direction: column; gap: 11px; }
+.cg-goal-opt {
+  display: flex; align-items: center; gap: 14px;
+  padding: 14px 18px; border: 1px solid var(--cg-bone);
+  border-radius: var(--radius); cursor: pointer; transition: all 0.15s;
+  background: var(--cg-mist);
+}
+.cg-goal-opt:hover { border-color: var(--cg-gold); background: var(--cg-white); }
+.cg-goal-opt.on { border-color: var(--cg-ink); background: var(--cg-white); }
+.cg-goal-ico {
+  width: 44px; height: 44px; border-radius: var(--radius-sm);
+  background: var(--cg-gold-lt); display: flex; align-items: center;
+  justify-content: center; font-size: 20px; flex-shrink: 0;
+}
+.cg-goal-txt strong { display: block; font-size: 14px; font-weight: 600; color: var(--cg-ink); }
+.cg-goal-txt span { font-size: 12px; color: var(--cg-slate); }
+.cg-goal-chk {
+  margin-left: auto; width: 22px; height: 22px; border-radius: 7px;
+  border: 1.5px solid var(--cg-bone); background: var(--cg-white);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700; flex-shrink: 0;
+}
+.cg-goal-opt.on .cg-goal-chk { background: var(--cg-ink); border-color: var(--cg-ink); color: var(--cg-white); }
+
+.cg-generate-btn {
+  width: 100%; padding: 18px; margin-top: 12px;
+  background: var(--cg-ink); color: var(--cg-white);
+  border: none; border-radius: var(--radius);
+  font-family: var(--fd); font-size: 18px; font-weight: 700;
+  cursor: pointer; transition: all 0.2s;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  letter-spacing: -0.3px;
+}
+.cg-generate-btn:hover { background: var(--cg-slate); transform: translateY(-2px); box-shadow: var(--cg-shadow-lg); }
+.cg-generate-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; box-shadow: none; }
+
+/* Dashboard */
+.cg-dash { max-width: 1200px; margin: 0 auto; padding: 32px 28px 80px; }
+.cg-dash-top {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  margin-bottom: 24px; flex-wrap: wrap; gap: 16px;
+}
+.cg-dash-greeting h1 {
+  font-family: var(--fd); font-size: 28px; font-weight: 800;
+  color: var(--cg-ink); letter-spacing: -0.8px;
+}
+.cg-dash-greeting p { font-size: 13px; color: var(--cg-slate); margin-top: 4px; }
+.cg-progress-pill {
+  background: var(--cg-ink); border-radius: var(--radius);
+  padding: 14px 20px; min-width: 210px;
+}
+.cg-progress-pill p { font-size: 11px; color: rgba(255,255,255,0.4); margin-bottom: 8px; letter-spacing: 0.3px; }
+.cg-pbar { height: 5px; background: rgba(255,255,255,0.1); border-radius: 99px; overflow: hidden; }
+.cg-pbar-fill { height: 100%; background: linear-gradient(90deg, var(--cg-gold), var(--cg-forest-md)); border-radius: 99px; transition: width 1.5s ease; }
+.cg-pbar-labels { display: flex; justify-content: space-between; margin-top: 7px; font-size: 11px; color: rgba(255,255,255,0.4); }
+.cg-pbar-pct { color: var(--cg-gold); font-weight: 600; }
+
+.cg-dash-grid { display: grid; grid-template-columns: 300px 1fr; gap: 20px; }
+.cg-dash-left { display: flex; flex-direction: column; gap: 16px; }
+.cg-dash-right { display: flex; flex-direction: column; gap: 16px; }
+
+.cg-profile-av {
+  width: 56px; height: 56px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--cg-forest), var(--cg-forest-md));
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--fd); font-size: 20px; font-weight: 800;
+  color: var(--cg-white); margin-bottom: 12px;
+}
+.cg-profile-name { font-family: var(--fd); font-size: 18px; font-weight: 700; color: var(--cg-ink); }
+.cg-profile-sub { font-size: 13px; color: var(--cg-slate); margin-top: 3px; }
+.cg-profile-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  margin-top: 10px; background: var(--cg-sky-lt); color: var(--cg-sky);
+  border-radius: var(--radius-pill); padding: 4px 12px; font-size: 12px; font-weight: 500;
+}
+.cg-info-row { display: flex; justify-content: space-between; padding: 6px 0; font-size: 13px; }
+.cg-info-lbl { color: var(--cg-slate); }
+.cg-info-val { font-weight: 500; color: var(--cg-ink); text-align: right; }
+
+.cg-subj-item { margin-bottom: 12px; }
+.cg-subj-hdr { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 5px; }
+.cg-subj-name { color: var(--cg-ink); font-weight: 500; }
+.cg-subj-grade { font-weight: 700; }
+.cg-sg-a { color: var(--cg-forest); }
+.cg-sg-b { color: var(--cg-sky); }
+.cg-sg-c { color: var(--cg-gold-dk); }
+.cg-sbar { height: 4px; background: var(--cg-bone); border-radius: 99px; }
+.cg-sfill { height: 100%; border-radius: 99px; }
+.cg-sf-a { background: var(--cg-forest-md); }
+.cg-sf-b { background: var(--cg-sky); }
+.cg-sf-c { background: var(--cg-gold); }
+
+/* AI Panel */
+.cg-ai-panel {
+  background: var(--cg-ink); border-radius: var(--radius);
+  padding: 24px; margin-bottom: 20px;
+}
+.cg-ai-panel-hdr {
+  display: flex; align-items: center; gap: 14px; margin-bottom: 18px;
+}
+.cg-ai-gem {
+  width: 46px; height: 46px; background: var(--cg-gold);
+  border-radius: var(--radius-sm); display: flex;
+  align-items: center; justify-content: center;
+  font-family: var(--fd); font-size: 20px; color: var(--cg-ink);
+  font-weight: 800; flex-shrink: 0;
+}
+.cg-ai-heading { font-family: var(--fd); font-size: 16px; font-weight: 700; color: var(--cg-white); }
+.cg-ai-sub { font-size: 12px; color: rgba(255,255,255,0.35); margin-top: 3px; }
+.cg-ai-body {
+  font-size: 14px; color: rgba(255,255,255,0.78);
+  line-height: 1.8;
+}
+.cg-ai-body strong { color: var(--cg-gold); }
+.cg-ai-body em { color: #7DD3B0; font-style: normal; }
+
+/* Match rings */
+.cg-match-item {
+  display: flex; align-items: center; gap: 14px;
+  padding: 12px 0; border-bottom: 0.5px solid var(--cg-bone);
+}
+.cg-match-item:last-child { border-bottom: none; }
+.cg-ring-wrap { position: relative; width: 58px; height: 58px; flex-shrink: 0; }
+.cg-ring-wrap svg { transform: rotate(-90deg); }
+.cg-ring-bg { fill: none; stroke: var(--cg-bone); stroke-width: 5; }
+.cg-ring-fill { fill: none; stroke-width: 5; stroke-linecap: round; transition: stroke-dashoffset 1.4s cubic-bezier(0.4,0,0.2,1); }
+.cg-ring-num {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--fd); font-size: 13px; font-weight: 800; color: var(--cg-ink);
+}
+.cg-match-name { font-family: var(--fd); font-size: 14px; font-weight: 700; color: var(--cg-ink); }
+.cg-match-why { font-size: 12px; color: var(--cg-slate); margin-top: 3px; line-height: 1.5; }
+
+/* Rec cards */
+.cg-rec-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+.cg-rec-card {
+  background: var(--cg-white); border: 0.5px solid var(--cg-border);
+  border-radius: var(--radius); padding: 16px;
+  cursor: pointer; transition: all 0.2s; position: relative; overflow: hidden;
+}
+.cg-rec-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; }
+.cg-rec-card.career::before { background: var(--cg-gold); }
+.cg-rec-card.skill::before { background: var(--cg-forest-md); }
+.cg-rec-card.univ::before { background: var(--cg-sky); }
+.cg-rec-card.cert::before { background: var(--cg-crimson); }
+.cg-rec-card:hover { transform: translateY(-3px); box-shadow: var(--cg-shadow); }
+.cg-rec-type { font-size: 10px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; margin-bottom: 7px; }
+.cg-rec-card.career .cg-rec-type { color: var(--cg-gold-dk); }
+.cg-rec-card.skill .cg-rec-type { color: var(--cg-forest); }
+.cg-rec-card.univ .cg-rec-type { color: var(--cg-sky); }
+.cg-rec-card.cert .cg-rec-type { color: var(--cg-crimson); }
+.cg-rec-title { font-family: var(--fd); font-size: 14px; font-weight: 700; color: var(--cg-ink); margin-bottom: 6px; line-height: 1.3; }
+.cg-rec-desc { font-size: 12px; color: var(--cg-slate); line-height: 1.5; }
+.cg-rec-match {
+  display: inline-flex; align-items: center; gap: 4px;
+  margin-top: 10px; font-size: 11px; font-weight: 600;
+  padding: 3px 9px; border-radius: var(--radius-pill);
+}
+.cg-rec-card.career .cg-rec-match { background: var(--cg-gold-lt); color: var(--cg-gold-dk); }
+.cg-rec-card.skill .cg-rec-match { background: var(--cg-forest-lt); color: var(--cg-forest); }
+.cg-rec-card.univ .cg-rec-match { background: var(--cg-sky-lt); color: var(--cg-sky); }
+.cg-rec-card.cert .cg-rec-match { background: var(--cg-crimson-lt); color: var(--cg-crimson); }
+
+/* Gap grid */
+.cg-gap-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.cg-gap-box { padding: 16px; border-radius: var(--radius-sm); }
+.cg-gap-box.have { background: var(--cg-forest-lt); }
+.cg-gap-box.build { background: var(--cg-gold-lt); }
+.cg-gap-box-lbl { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+.cg-gap-box.have .cg-gap-box-lbl { color: var(--cg-forest); }
+.cg-gap-box.build .cg-gap-box-lbl { color: var(--cg-gold-dk); }
+.cg-gap-items { font-size: 13px; line-height: 2.0; }
+.cg-gap-box.have .cg-gap-items { color: var(--cg-forest); }
+.cg-gap-box.build .cg-gap-items { color: var(--cg-gold-dk); }
+
+/* ════════════════════════════════════════════
+   PAGE 3 — SOMA (LEARN ABOUT CAREERS)
+════════════════════════════════════════════ */
+.cg-soma-hero {
+  background: var(--cg-forest);
+  padding: 60px 28px;
+  text-align: center;
+  position: relative; overflow: hidden;
+}
+.cg-soma-hero-bg {
+  position: absolute; inset: 0;
+  background-image: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.04) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(200,146,42,0.08) 0%, transparent 40%);
+}
+.cg-soma-hero-content { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; }
+.cg-soma-tag {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15);
+  border-radius: var(--radius-pill); padding: 5px 14px;
+  font-size: 11px; color: rgba(255,255,255,0.75);
+  font-weight: 600; letter-spacing: 0.8px; text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.cg-soma-title {
+  font-family: var(--fd); font-size: clamp(32px, 5vw, 52px);
+  font-weight: 800; color: var(--cg-white);
+  letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 16px;
+}
+.cg-soma-title em { font-style: italic; color: var(--cg-gold); }
+.cg-soma-sub { font-size: 16px; color: rgba(255,255,255,0.6); font-weight: 300; line-height: 1.65; }
+
+/* Subject tabs */
+.cg-soma-tabs {
+  background: var(--cg-white); border-bottom: 1px solid var(--cg-bone);
+  position: sticky; top: 60px; z-index: 100;
+}
+.cg-soma-tabs-inner {
+  max-width: 1200px; margin: 0 auto; padding: 0 28px;
+  display: flex; gap: 4px; overflow-x: auto;
+  scrollbar-width: none;
+}
+.cg-soma-tabs-inner::-webkit-scrollbar { display: none; }
+.cg-soma-tab {
+  display: flex; align-items: center; gap: 7px;
+  padding: 14px 18px; font-family: var(--fb); font-size: 13px;
+  font-weight: 500; color: var(--cg-slate); cursor: pointer;
+  border: none; background: none; white-space: nowrap;
+  border-bottom: 2px solid transparent; transition: all 0.18s;
+}
+.cg-soma-tab:hover { color: var(--cg-ink); }
+.cg-soma-tab.on { color: var(--cg-forest); border-bottom-color: var(--cg-forest-md); font-weight: 600; }
+
+/* Soma content */
+.cg-soma-content { max-width: 1200px; margin: 0 auto; padding: 48px 28px 80px; }
+.cg-soma-grid { display: grid; grid-template-columns: 280px 1fr; gap: 28px; }
+.cg-soma-sidebar { position: sticky; top: 120px; height: fit-content; }
+.cg-soma-filter-title { font-family: var(--fd); font-size: 15px; font-weight: 700; color: var(--cg-ink); margin-bottom: 14px; }
+.cg-soma-filter-group { margin-bottom: 20px; }
+.cg-soma-filter-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.6px; color: var(--cg-slate); margin-bottom: 8px; }
+.cg-soma-filter-opts { display: flex; flex-direction: column; gap: 4px; }
+.cg-soma-fopt {
+  display: flex; align-items: center; gap: 9px;
+  padding: 8px 12px; border-radius: var(--radius-sm);
+  cursor: pointer; font-size: 13px; color: var(--cg-ink);
+  border: none; background: none; text-align: left;
+  transition: all 0.15s; font-family: var(--fb);
+}
+.cg-soma-fopt:hover { background: var(--cg-bone); }
+.cg-soma-fopt.on { background: var(--cg-forest-lt); color: var(--cg-forest); font-weight: 600; }
+.cg-soma-fopt .cg-fopt-icon { font-size: 16px; flex-shrink: 0; }
+.cg-soma-fopt .cg-fopt-count {
+  margin-left: auto; font-size: 11px;
+  background: var(--cg-bone); color: var(--cg-slate);
+  padding: 1px 7px; border-radius: var(--radius-pill);
+}
+.cg-soma-fopt.on .cg-fopt-count { background: var(--cg-forest-lt); color: var(--cg-forest); }
+
+/* Soma career cards */
+.cg-soma-cards { display: flex; flex-direction: column; gap: 16px; }
+.cg-soma-card {
+  background: var(--cg-white); border: 0.5px solid var(--cg-border);
+  border-radius: var(--radius); overflow: hidden;
+  transition: all 0.2s; cursor: pointer;
+}
+.cg-soma-card:hover { box-shadow: var(--cg-shadow); transform: translateX(3px); }
+.cg-soma-card-inner { display: grid; grid-template-columns: 180px 1fr; }
+.cg-soma-card-visual {
+  background: var(--cg-forest);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 24px 16px; text-align: center;
+  min-height: 160px;
+}
+.cg-soma-card-emoji { font-size: 36px; margin-bottom: 10px; }
+.cg-soma-card-category {
+  font-size: 10px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.6px; color: rgba(255,255,255,0.55);
+  margin-bottom: 4px;
+}
+.cg-soma-card-subj {
+  font-family: var(--fd); font-size: 13px; font-weight: 700;
+  color: var(--cg-gold); text-align: center; line-height: 1.3;
+}
+.cg-soma-card-body { padding: 20px 22px; }
+.cg-soma-card-title {
+  font-family: var(--fd); font-size: 18px; font-weight: 800;
+  color: var(--cg-ink); margin-bottom: 8px; letter-spacing: -0.3px;
+  line-height: 1.2;
+}
+.cg-soma-card-desc { font-size: 13px; color: var(--cg-slate); line-height: 1.65; margin-bottom: 14px; }
+.cg-soma-card-meta { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.cg-soma-salary { font-size: 12px; font-weight: 600; color: var(--cg-forest); }
+.cg-soma-growth {
+  font-size: 11px; font-weight: 600; padding: 3px 9px;
+  border-radius: var(--radius-pill); background: var(--cg-forest-lt); color: var(--cg-forest);
+}
+.cg-soma-read-btn {
+  margin-left: auto; font-size: 12px; font-weight: 600;
+  color: var(--cg-slate); display: flex; align-items: center; gap: 5px;
+  background: none; border: none; cursor: pointer;
+  font-family: var(--fb); transition: all 0.15s;
+}
+.cg-soma-read-btn:hover { color: var(--cg-forest); }
+
+/* Soma Deep Dive Modal */
+.cg-soma-dive {
+  background: var(--cg-white); border-radius: var(--radius);
+  padding: 32px; max-width: 720px; width: 100%;
+  max-height: 90vh; overflow-y: auto; position: relative;
+}
+.cg-soma-dive-hero {
+  background: var(--cg-forest); border-radius: var(--radius-sm);
+  padding: 28px; margin-bottom: 24px;
+  display: flex; align-items: center; gap: 20px;
+}
+.cg-soma-dive-icon {
+  width: 64px; height: 64px; background: rgba(255,255,255,0.12);
+  border-radius: var(--radius-sm); display: flex;
+  align-items: center; justify-content: center; font-size: 32px; flex-shrink: 0;
+}
+.cg-soma-dive-label { font-size: 11px; color: rgba(255,255,255,0.45); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 6px; }
+.cg-soma-dive-title { font-family: var(--fd); font-size: 24px; font-weight: 800; color: var(--cg-white); letter-spacing: -0.5px; }
+.cg-soma-dive-sub { font-size: 13px; color: rgba(255,255,255,0.6); margin-top: 6px; }
+
+.cg-soma-section { margin-bottom: 28px; }
+.cg-soma-section h3 {
+  font-family: var(--fd); font-size: 16px; font-weight: 700;
+  color: var(--cg-ink); margin-bottom: 12px;
+  display: flex; align-items: center; gap: 8px;
+}
+.cg-soma-section h3::before {
+  content: ''; width: 3px; height: 18px;
+  background: var(--cg-forest-md); border-radius: 2px;
+}
+.cg-soma-section p { font-size: 14px; color: var(--cg-slate); line-height: 1.75; }
+.cg-soma-subjects { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+
+.cg-day-timeline { display: flex; flex-direction: column; gap: 12px; }
+.cg-day-item { display: flex; gap: 12px; }
+.cg-day-time { font-family: var(--fd); font-size: 12px; font-weight: 700; color: var(--cg-gold-dk); min-width: 60px; padding-top: 2px; }
+.cg-day-task { font-size: 13px; color: var(--cg-ink); background: var(--cg-mist); padding: 10px 14px; border-radius: var(--radius-sm); flex: 1; }
+
+.cg-ai-ask-section {
+  background: var(--cg-ink); border-radius: var(--radius-sm); padding: 20px;
+  margin-top: 24px;
+}
+.cg-ai-ask-title { font-family: var(--fd); font-size: 15px; font-weight: 700; color: var(--cg-white); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+.cg-ai-ask-title span { background: var(--cg-gold); color: var(--cg-ink); padding: 2px 8px; border-radius: var(--radius-pill); font-size: 11px; }
+.cg-ai-q-row { display: flex; gap: 8px; }
+.cg-ai-q-input {
+  flex: 1; padding: 10px 14px; background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12); border-radius: var(--radius-sm);
+  font-family: var(--fb); font-size: 13px; color: var(--cg-white); outline: none;
+}
+.cg-ai-q-input::placeholder { color: rgba(255,255,255,0.3); }
+.cg-ai-q-input:focus { border-color: var(--cg-gold); }
+.cg-ai-q-btn {
+  background: var(--cg-gold); color: var(--cg-ink);
+  border: none; border-radius: var(--radius-sm); padding: 10px 16px;
+  cursor: pointer; font-size: 16px; font-weight: 700;
+  transition: all 0.15s; flex-shrink: 0;
+}
+.cg-ai-q-btn:hover { transform: scale(1.05); }
+.cg-ai-q-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+.cg-ai-q-sugs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+.cg-ai-q-sug {
+  font-size: 11px; padding: 4px 11px;
+  background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius-pill); color: rgba(255,255,255,0.6);
+  cursor: pointer; font-family: var(--fb); transition: all 0.15s;
+}
+.cg-ai-q-sug:hover { background: rgba(255,255,255,0.12); color: var(--cg-white); }
+.cg-ai-answer {
+  margin-top: 14px; font-size: 13px; color: rgba(255,255,255,0.78);
+  line-height: 1.75; display: none;
+}
+.cg-ai-answer strong { color: var(--cg-gold); }
+.cg-ai-answer.visible { display: block; }
+.cg-thinking {
+  color: rgba(255,255,255,0.4); font-size: 13px;
+  display: flex; align-items: center; gap: 8px;
+}
+.cg-dots span { animation: cg-dot 1.4s ease-in-out infinite; display: inline-block; }
+.cg-dots span:nth-child(2) { animation-delay: 0.2s; }
+.cg-dots span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes cg-dot { 0%,80%,100%{transform:translateY(0)} 40%{transform:translateY(-5px)} }
+
+/* ════════════════════════════════════════════
+   PAGE 4 — PARENTS BLOG
+════════════════════════════════════════════ */
+.cg-blog-hero {
+  background: var(--cg-sky); padding: 60px 28px;
+  position: relative; overflow: hidden;
+}
+.cg-blog-hero-bg {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 80% 50%, rgba(255,255,255,0.06) 0%, transparent 60%);
+}
+.cg-blog-hero-inner { max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; }
+.cg-blog-hero-tag {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);
+  border-radius: var(--radius-pill); padding: 5px 14px;
+  font-size: 11px; color: rgba(255,255,255,0.8);
+  font-weight: 600; letter-spacing: 0.8px; text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.cg-blog-hero-title {
+  font-family: var(--fd); font-size: clamp(30px, 4.5vw, 50px);
+  font-weight: 800; color: var(--cg-white);
+  letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 14px;
+}
+.cg-blog-hero-sub { font-size: 16px; color: rgba(255,255,255,0.65); font-weight: 300; max-width: 560px; line-height: 1.65; }
+
+/* Blog layout */
+.cg-blog-layout { max-width: 1200px; margin: 0 auto; padding: 48px 28px 80px; }
+.cg-blog-grid { display: grid; grid-template-columns: 1fr 320px; gap: 36px; }
+
+/* Featured post */
+.cg-blog-featured {
+  background: var(--cg-ink); border-radius: var(--radius); overflow: hidden;
+  margin-bottom: 24px; cursor: pointer; transition: all 0.2s;
+}
+.cg-blog-featured:hover { transform: translateY(-3px); box-shadow: var(--cg-shadow-lg); }
+.cg-blog-feat-visual {
+  height: 220px; background: linear-gradient(135deg, var(--cg-sky) 0%, var(--cg-forest) 100%);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 60px; position: relative; overflow: hidden;
+}
+.cg-blog-feat-visual::before {
+  content: ''; position: absolute; inset: 0;
+  background: repeating-linear-gradient(45deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 20px);
+}
+.cg-blog-feat-body { padding: 28px; }
+.cg-blog-feat-tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(200,146,42,0.15); color: var(--cg-gold);
+  border-radius: var(--radius-pill); padding: 4px 12px;
+  font-size: 11px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.6px; margin-bottom: 14px;
+}
+.cg-blog-feat-title {
+  font-family: var(--fd); font-size: 22px; font-weight: 800;
+  color: var(--cg-white); letter-spacing: -0.5px; line-height: 1.2; margin-bottom: 10px;
+}
+.cg-blog-feat-excerpt { font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.7; margin-bottom: 20px; }
+.cg-blog-feat-meta { display: flex; align-items: center; gap: 12px; }
+.cg-blog-feat-av {
+  width: 34px; height: 34px; border-radius: 50%;
+  background: var(--cg-gold); display: flex; align-items: center;
+  justify-content: center; font-family: var(--fd); font-size: 14px;
+  font-weight: 700; color: var(--cg-ink);
+}
+.cg-blog-feat-byline { font-size: 12px; color: rgba(255,255,255,0.4); }
+.cg-blog-feat-byline strong { color: rgba(255,255,255,0.7); font-weight: 500; }
+.cg-blog-feat-read { margin-left: auto; font-size: 12px; color: var(--cg-gold); font-weight: 600; }
+
+/* Blog post cards */
+.cg-blog-posts { display: flex; flex-direction: column; gap: 16px; }
+.cg-blog-post {
+  background: var(--cg-white); border: 0.5px solid var(--cg-border);
+  border-radius: var(--radius); padding: 22px;
+  cursor: pointer; transition: all 0.2s;
+  display: grid; grid-template-columns: 80px 1fr; gap: 16px;
+}
+.cg-blog-post:hover { transform: translateX(4px); box-shadow: var(--cg-shadow); }
+.cg-blog-post-thumb {
+  width: 80px; height: 80px; border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 32px; flex-shrink: 0;
+}
+.cg-blog-post-cat {
+  font-size: 10px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.6px; color: var(--cg-sky); margin-bottom: 5px;
+}
+.cg-blog-post-title {
+  font-family: var(--fd); font-size: 16px; font-weight: 700;
+  color: var(--cg-ink); line-height: 1.25; margin-bottom: 6px;
+}
+.cg-blog-post-excerpt { font-size: 12px; color: var(--cg-slate); line-height: 1.55; }
+.cg-blog-post-meta { font-size: 11px; color: #aaa; margin-top: 8px; }
+
+/* Blog sidebar */
+.cg-blog-sidebar { position: sticky; top: 80px; height: fit-content; }
+.cg-blog-sidebar-title {
+  font-family: var(--fd); font-size: 14px; font-weight: 700;
+  color: var(--cg-ink); margin-bottom: 14px; text-transform: uppercase;
+  letter-spacing: 0.4px; font-size: 12px;
+}
+
+.cg-parent-tips {
+  background: var(--cg-sky-lt); border-radius: var(--radius); padding: 20px; margin-bottom: 20px;
+}
+.cg-parent-tips-title { font-family: var(--fd); font-size: 15px; font-weight: 700; color: var(--cg-sky); margin-bottom: 12px; }
+.cg-parent-tip-item {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 10px 0; border-bottom: 0.5px solid rgba(27,95,163,0.1); font-size: 13px; color: var(--cg-ink);
+}
+.cg-parent-tip-item:last-child { border-bottom: none; }
+.cg-parent-tip-ico { font-size: 16px; flex-shrink: 0; }
+
+.cg-blog-cats { display: flex; flex-direction: column; gap: 4px; }
+.cg-blog-cat {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 9px 12px; border-radius: var(--radius-sm);
+  font-size: 13px; color: var(--cg-ink); cursor: pointer;
+  border: none; background: none; font-family: var(--fb);
+  transition: all 0.15s; text-align: left;
+}
+.cg-blog-cat:hover { background: var(--cg-bone); }
+.cg-blog-cat.on { background: var(--cg-sky-lt); color: var(--cg-sky); font-weight: 600; }
+.cg-blog-cat-count {
+  font-size: 11px; background: var(--cg-bone); color: var(--cg-slate);
+  padding: 1px 7px; border-radius: var(--radius-pill);
+}
+
+/* ════════════════════════════════════════════
+   MODAL — SHARED
+════════════════════════════════════════════ */
+.cg-modal-overlay {
+  position: fixed; inset: 0; background: rgba(15,25,35,0.6);
+  backdrop-filter: blur(4px);
+  z-index: 500; display: flex; align-items: center;
+  justify-content: center; padding: 20px;
+  opacity: 0; pointer-events: none; transition: opacity 0.25s;
+}
+.cg-modal-overlay.open { opacity: 1; pointer-events: auto; }
+.cg-modal {
+  background: var(--cg-white); border-radius: var(--radius);
+  padding: 32px; width: 100%; max-height: 90vh;
+  overflow-y: auto; position: relative;
+  transform: translateY(20px); transition: transform 0.25s;
+}
+.cg-modal-overlay.open .cg-modal { transform: translateY(0); }
+.cg-modal-close {
+  position: absolute; top: 18px; right: 18px;
+  background: var(--cg-bone); border: none; cursor: pointer;
+  width: 32px; height: 32px; border-radius: 50%;
+  font-size: 16px; color: var(--cg-slate);
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.15s;
+}
+.cg-modal-close:hover { background: var(--cg-ink); color: var(--cg-white); }
+
+/* Roadmap */
+.cg-roadmap { display: flex; flex-direction: column; }
+.cg-roadmap-step { display: flex; gap: 16px; padding-bottom: 24px; position: relative; }
+.cg-roadmap-step:last-child { padding-bottom: 0; }
+.cg-roadmap-step::before {
+  content: ''; position: absolute; left: 17px; top: 38px;
+  width: 1px; height: calc(100% - 14px);
+  background: var(--cg-bone);
+}
+.cg-roadmap-step:last-child::before { display: none; }
+.cg-rs-num {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--cg-ink); color: var(--cg-white);
+  font-family: var(--fd); font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.cg-rs-title { font-weight: 600; font-size: 14px; color: var(--cg-ink); margin-bottom: 4px; }
+.cg-rs-body { font-size: 13px; color: var(--cg-slate); line-height: 1.6; }
+.cg-rs-dur {
+  display: inline-block; margin-top: 7px;
+  font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;
+  color: var(--cg-gold-dk); background: var(--cg-gold-lt);
+  padding: 2px 9px; border-radius: var(--radius-pill);
+}
+
+/* ── FOOTER ── */
+.cg-footer {
+  background: var(--cg-ink); padding: 48px 28px;
+  text-align: center; border-top: 1px solid rgba(200,146,42,0.2);
+}
+.cg-footer-logo {
+  font-family: var(--fd); font-size: 24px; font-weight: 800;
+  color: var(--cg-white); letter-spacing: -0.5px; margin-bottom: 8px;
+}
+.cg-footer-logo em { font-style: italic; color: var(--cg-gold); }
+.cg-footer p { font-size: 13px; color: rgba(255,255,255,0.25); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .cg-nav-links, .cg-logo-flag { display: none; }
+  .cg-hamburger { display: block; }
+  .cg-modules-grid { grid-template-columns: 1fr; }
+  .cg-dash-grid { grid-template-columns: 1fr; }
+  .cg-soma-grid { grid-template-columns: 1fr; }
+  .cg-soma-sidebar { position: static; }
+  .cg-blog-grid { grid-template-columns: 1fr; }
+  .cg-blog-sidebar { display: none; }
+  .cg-soma-card-inner { grid-template-columns: 120px 1fr; }
+  .cg-hero-stats { grid-template-columns: repeat(2, 1fr); }
+  .cg-fgrid { grid-template-columns: 1fr; }
+  .cg-gap-grid { grid-template-columns: 1fr; }
+  .cg-rec-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 600px) {
+  .cg-hero-title { letter-spacing: -1.5px; }
+  .cg-soma-card-inner { grid-template-columns: 1fr; }
+  .cg-soma-card-visual { min-height: 100px; flex-direction: row; padding: 16px 20px; gap: 12px; }
+  .cg-soma-card-emoji { font-size: 28px; margin-bottom: 0; }
+  .cg-blog-post { grid-template-columns: 1fr; }
+  .cg-blog-post-thumb { width: 60px; height: 60px; }
+  .cg-rec-grid { grid-template-columns: 1fr; }
+  .cg-grade-row { grid-template-columns: 1fr 1fr 36px; }
+}
+</style>
+
+<!-- ═══════════════ ROOT ═══════════════ -->
+<div id="cg-root">
+
+<!-- Loader -->
+<div id="cg-loader">
+  <div class="cg-loader-mark">CG</div>
+  <div class="cg-loader-title">Career<em style="font-style:italic;color:#C8922A">Genie</em> Kenya</div>
+  <div class="cg-loader-sub">AI-POWERED · FUTURE READY</div>
+  <div class="cg-loader-bar"><div class="cg-loader-fill"></div></div>
+</div>
+
+<!-- Nav -->
+<nav id="cg-nav">
+  <div class="cg-nav-inner">
+    <div class="cg-logo" onclick="cgNav('home')">
+      Career<span class="cg-logo-accent">Genie</span>
+      <span class="cg-logo-flag">🇰🇪</span>
+    </div>
+    <div class="cg-nav-links">
+      <button class="cg-navbtn cg-active" onclick="cgNav('home')"><span class="cg-nb-icon">🏠</span>Home</button>
+      <button class="cg-navbtn" onclick="cgNav('student')"><span class="cg-nb-icon">✦</span>My Profile</button>
+      <button class="cg-navbtn" onclick="cgNav('soma')"><span class="cg-nb-icon">📖</span>Soma</button>
+      <button class="cg-navbtn" onclick="cgNav('parents')"><span class="cg-nb-icon">👨‍👩‍👧</span>Parents</button>
+    </div>
+    <button class="cg-hamburger" onclick="cgToggleMNav()">☰</button>
+  </div>
+  <div class="cg-mobile-nav" id="cgMNav">
+    <button class="cg-navbtn" onclick="cgNav('home');cgToggleMNav()">🏠 Home</button>
+    <button class="cg-navbtn" onclick="cgNav('student');cgToggleMNav()">✦ My Profile & AI Dashboard</button>
+    <button class="cg-navbtn" onclick="cgNav('soma');cgToggleMNav()">📖 Soma — Learn About Careers</button>
+    <button class="cg-navbtn" onclick="cgNav('parents');cgToggleMNav()">👨‍👩‍👧 Parents Blog</button>
+  </div>
+</nav>
+
+<!-- ═══ PAGE: HOME ═══ -->
+<div class="cg-page cg-active" id="cg-pg-home">
+  <div class="cg-hero">
+    <div class="cg-hero-grid"></div>
+    <div class="cg-hero-glow"></div>
+    <div class="cg-hero-content">
+      <div class="cg-hero-eyebrow">✦ Powered by Claude AI · Built for Kenya</div>
+      <h1 class="cg-hero-title">Every Kenyan student<br><em>future ready</em></h1>
+      <p class="cg-hero-sub">Whether you're in CBC, IGCSE, A-Levels or IB — our AI analyses your unique profile and maps a personalised career path built for Kenya's economy.</p>
+      <div class="cg-hero-actions">
+        <button class="cg-btn cg-btn-gold" onclick="cgNav('student')">✦ Build My Profile →</button>
+        <button class="cg-btn cg-btn-outline" style="color:#fff;border-color:rgba(255,255,255,0.2)" onclick="cgNav('soma')">📖 Soma — Learn Careers</button>
+      </div>
+      <div class="cg-hero-stats">
+        <div class="cg-hero-stat"><span class="cg-stat-num">200+</span><div class="cg-stat-label">Career paths</div></div>
+        <div class="cg-hero-stat"><span class="cg-stat-num">5</span><div class="cg-stat-label">Curricula</div></div>
+        <div class="cg-hero-stat"><span class="cg-stat-num">47</span><div class="cg-stat-label">Counties</div></div>
+        <div class="cg-hero-stat"><span class="cg-stat-num">AI</span><div class="cg-stat-label">Personalised</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cg-platform">
+    <div class="cg-platform-inner">
+      <div class="cg-platform-label">What's inside</div>
+      <div class="cg-platform-title">Three modules. One platform.</div>
+      <div class="cg-modules-grid">
+        <div class="cg-module-card student" onclick="cgNav('student')">
+          <div class="cg-module-icon">✦</div>
+          <div class="cg-module-title">AI Career Genie</div>
+          <p class="cg-module-desc">Fill in your profile — interests, grades, curriculum, dreams. Our AI generates a personalised career analysis, match scores, skills gap report, and step-by-step roadmaps — all Kenya-specific.</p>
+          <div class="cg-module-arrow">Build my profile <span>→</span></div>
+        </div>
+        <div class="cg-module-card soma" onclick="cgNav('soma')">
+          <div class="cg-module-icon">📖</div>
+          <div class="cg-module-title">Soma — Career Learning</div>
+          <p class="cg-module-desc">Explore careers by subject — what does a doctor who loved Biology actually do? What about an economist who excelled in Maths? Deep dives, day-in-the-life stories, and AI Q&A for every career.</p>
+          <div class="cg-module-arrow">Explore careers <span>→</span></div>
+        </div>
+        <div class="cg-module-card parents" onclick="cgNav('parents')">
+          <div class="cg-module-icon">👨‍👩‍👧</div>
+          <div class="cg-module-title">Parents Blog</div>
+          <p class="cg-module-desc">Guides for Kenyan parents navigating career conversations with their children. How to support CBC transitions, understand new career paths, discuss university costs, and more.</p>
+          <div class="cg-module-arrow">Read the blog <span>→</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cg-home-footer">
+    <div class="cg-home-footer-logo">Career<em>Genie</em> Kenya</div>
+    <p>Empowering Kenya's next generation · Built for all 47 counties 🇰🇪</p>
+  </div>
+</div>
+
+<!-- ═══ PAGE: STUDENT AI ═══ -->
+<div class="cg-page" id="cg-pg-student">
+  <!-- Setup wizard (shown until profile is generated) -->
+  <div id="cgSetup">
+    <div class="cg-wizard">
+      <div class="cg-wizard-header">
+        <div class="cg-page-tag">✦ AI-Powered</div>
+        <h1 class="cg-page-title">Build your <em>profile</em></h1>
+        <p class="cg-page-sub">The more you share, the smarter your personalised career report</p>
+      </div>
+      <div class="cg-wizard-steps">
+        <div class="cg-wstep done" id="ws1"><div class="cg-wstep-dot">✓</div><div class="cg-wstep-label">About you</div><div class="cg-wstep-line"></div></div>
+        <div class="cg-wstep active" id="ws2"><div class="cg-wstep-dot">2</div><div class="cg-wstep-label">Interests</div><div class="cg-wstep-line"></div></div>
+        <div class="cg-wstep" id="ws3"><div class="cg-wstep-dot">3</div><div class="cg-wstep-label">Academics</div><div class="cg-wstep-line"></div></div>
+        <div class="cg-wstep" id="ws4"><div class="cg-wstep-dot">4</div><div class="cg-wstep-label">Goals</div></div>
+      </div>
+
+      <!-- Section 1 -->
+      <div class="cg-fsec">
+        <div class="cg-fsec-title"><span class="cg-sec-num">1</span>Basic Information</div>
+        <div class="cg-fgrid">
+          <div class="cg-frow"><label class="cg-label">Full Name</label><input class="cg-input" id="cgName" placeholder="e.g. Amina Wanjiku" type="text"></div>
+          <div class="cg-frow"><label class="cg-label">Form / Year</label>
+            <select class="cg-select" id="cgForm">
+              <option value="">Select your form</option>
+              <option>Form 1</option><option>Form 2</option><option>Form 3</option><option>Form 4</option>
+              <option>Grade 11 (CBC)</option><option>Grade 12 (CBC)</option>
+              <option>Year 10 / O-Level</option><option>Year 12 / A-Level</option>
+              <option>IB Year 1</option><option>IB Year 2</option>
+            </select>
+          </div>
+        </div>
+        <div class="cg-fgrid">
+          <div class="cg-frow"><label class="cg-label">Curriculum</label>
+            <select class="cg-select" id="cgCurric">
+              <option value="">Select curriculum</option>
+              <option>Kenya National (CBC/KCSE)</option>
+              <option>IGCSE / Cambridge</option>
+              <option>A-Levels (British)</option>
+              <option>International Baccalaureate (IB)</option>
+              <option>American Curriculum (AP)</option>
+            </select>
+          </div>
+          <div class="cg-frow"><label class="cg-label">County</label>
+            <select class="cg-select" id="cgCounty">
+              <option value="">Select county</option>
+              <option>Nairobi</option><option>Mombasa</option><option>Kisumu</option>
+              <option>Nakuru</option><option>Eldoret / Uasin Gishu</option><option>Kiambu</option>
+              <option>Machakos</option><option>Nyeri</option><option>Meru</option>
+              <option>Kakamega</option><option>Kilifi</option><option>Garissa</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 2 -->
+      <div class="cg-fsec">
+        <div class="cg-fsec-title"><span class="cg-sec-num">2</span>Your Interests <span style="font-weight:300;font-size:14px;color:#888">— select all that apply</span></div>
+        <div class="cg-int-grid" id="cgInts">
+          <button class="cg-int-btn" onclick="cgToggleInt(this)">🖥️ Technology & Coding</button>
+          <button class="cg-int-btn" onclick="cgToggleInt(this)">🏥 Medicine & Health</button>
+          <button class="cg-int-btn" onclick="cgToggleInt(this)">💼 Business & Finance</button>
+          <button class="cg-int-btn" onclick="cgToggleInt(this)">🌱 Environment & Climate</button>
+          <button class="cg-int-btn" onclick="cgToggleInt(this)">🎨 Arts & Design</button>
+          <button class="cg-int-btn" onclick="cgToggleInt(this)">⚖️ Law & Justice</button>
+          <button class="cg-int-btn" onclick="cgToggleInt(this)">⚙️ Engineering</button>
+          <button class="cg-int-btn" onclick="cgToggleInt(this)">🌾 Agriculture & Food</button>
+          <button class="cg-int-btn" onclick="cgToggleInt(this)">📚 Education & Teaching</button>
+          <button class="cg-int-btn" onclick="cgToggleInt(this)">📱 Media & Communication</button>
+          <button class="cg-int-btn" onclick="cgToggleInt(this)">🏛️ Politics & Leadership</button>
+          <button class="cg-int-btn" onclick="cgToggleInt(this)">⚽ Sports & Fitness</button>
+          <button class="cg-int-btn" onclick="cgToggleInt(this)">🏨 Tourism & Hospitality</button>
+          <button class="cg-int-btn" onclick="cgToggleInt(this)">🤝 Social Work & NGO</button>
+          <button class="cg-int-btn" onclick="cgToggleInt(this)">🔬 Research & Science</button>
+          <button class="cg-int-btn" onclick="cgToggleInt(this)">🚀 Entrepreneurship</button>
+        </div>
+      </div>
+
+      <!-- Section 3 -->
+      <div class="cg-fsec">
+        <div class="cg-fsec-title"><span class="cg-sec-num">3</span>Academic Performance</div>
+        <p style="font-size:13px;color:#888;margin-bottom:16px">Add your key subjects and current grades</p>
+        <div class="cg-grade-rows" id="cgGrades">
+          <div class="cg-grade-row">
+            <select class="cg-select"><option>Mathematics</option><option>Biology</option><option>Chemistry</option><option>Physics</option><option>English</option><option>Kiswahili</option><option>Business Studies</option><option>Geography</option><option>History</option><option>Computer Studies</option><option>Agriculture</option><option>Art & Design</option></select>
+            <select class="cg-select"><option>A (90–100%)</option><option>A- (80–89%)</option><option selected>B+ (75–79%)</option><option>B (70–74%)</option><option>B- (65–69%)</option><option>C+ (60–64%)</option><option>C (55–59%)</option></select>
+            <button class="cg-grade-del" onclick="cgDelRow(this)">×</button>
+          </div>
+          <div class="cg-grade-row">
+            <select class="cg-select"><option>Mathematics</option><option>Biology</option><option>Chemistry</option><option>Physics</option><option>English</option><option>Kiswahili</option><option selected>Business Studies</option><option>Geography</option></select>
+            <select class="cg-select"><option selected>A (90–100%)</option></select>
+            <button class="cg-grade-del" onclick="cgDelRow(this)">×</button>
+          </div>
+          <div class="cg-grade-row">
+            <select class="cg-select"><option>Mathematics</option><option>Biology</option><option>Chemistry</option><option>Physics</option><option selected>English</option></select>
+            <select class="cg-select"><option>A (90–100%)</option><option selected>A- (80–89%)</option></select>
+            <button class="cg-grade-del" onclick="cgDelRow(this)">×</button>
+          </div>
+        </div>
+        <button class="cg-add-row-btn" onclick="cgAddRow()">+ Add another subject</button>
+      </div>
+
+      <!-- Section 4 -->
+      <div class="cg-fsec">
+        <div class="cg-fsec-title"><span class="cg-sec-num">4</span>Tell us about yourself <span style="font-weight:300;font-size:14px;color:#888">— optional but powerful</span></div>
+        <div class="cg-frow">
+          <label class="cg-label">In your own words</label>
+          <textarea class="cg-textarea" id="cgBio" placeholder="e.g. I love maths and enjoy helping people. I've always been curious about how technology can improve lives in Kenya. My dream is to build something that makes a difference while also giving me financial freedom…"></textarea>
+        </div>
+      </div>
+
+      <!-- Section 5 -->
+      <div class="cg-fsec">
+        <div class="cg-fsec-title"><span class="cg-sec-num">5</span>Career Goal</div>
+        <div class="cg-goal-opts">
+          <div class="cg-goal-opt on" onclick="cgSelectGoal(this)">
+            <div class="cg-goal-ico">🎓</div>
+            <div class="cg-goal-txt"><strong>University Degree</strong><span>Study locally (UoN, Strathmore, KU) or internationally</span></div>
+            <div class="cg-goal-chk">✓</div>
+          </div>
+          <div class="cg-goal-opt" onclick="cgSelectGoal(this)">
+            <div class="cg-goal-ico">💼</div>
+            <div class="cg-goal-txt"><strong>Start a Business</strong><span>Build something in Kenya's startup ecosystem</span></div>
+            <div class="cg-goal-chk"></div>
+          </div>
+          <div class="cg-goal-opt" onclick="cgSelectGoal(this)">
+            <div class="cg-goal-ico">🌍</div>
+            <div class="cg-goal-txt"><strong>Work Internationally</strong><span>Build skills for a global or diaspora career</span></div>
+            <div class="cg-goal-chk"></div>
+          </div>
+          <div class="cg-goal-opt" onclick="cgSelectGoal(this)">
+            <div class="cg-goal-ico">🔧</div>
+            <div class="cg-goal-txt"><strong>Technical / Vocational</strong><span>TVET, certifications, and hands-on trades</span></div>
+            <div class="cg-goal-chk"></div>
+          </div>
+        </div>
+      </div>
+
+      <button class="cg-generate-btn" id="cgGenBtn" onclick="cgRunAI()">
+        ✦ Generate My AI Career Report
+      </button>
+      <p style="text-align:center;font-size:12px;color:#bbb;margin-top:12px">Takes 15–25 seconds · Powered by Claude AI</p>
+    </div>
+  </div>
+
+  <!-- Dashboard (shown after AI runs) -->
+  <div id="cgDash" style="display:none">
+    <div class="cg-dash">
+      <div class="cg-dash-top">
+        <div class="cg-dash-greeting">
+          <h1 id="cgDashTitle">Habari! 👋</h1>
+          <p id="cgDashSub">Your AI career report is ready</p>
+        </div>
+        <div class="cg-progress-pill">
+          <p>Profile Score</p>
+          <div class="cg-pbar"><div class="cg-pbar-fill" id="cgPbarFill" style="width:0%"></div></div>
+          <div class="cg-pbar-labels"><span id="cgPbarLbl">Calculating…</span><span class="cg-pbar-pct" id="cgPbarPct">0%</span></div>
+        </div>
+      </div>
+
+      <!-- AI Insight Panel -->
+      <div class="cg-ai-panel" id="cgAiPanel">
+        <div class="cg-ai-panel-hdr">
+          <div class="cg-ai-gem">✦</div>
+          <div>
+            <div class="cg-ai-heading">Your Genie's Analysis</div>
+            <div class="cg-ai-sub" id="cgAiSub">Analysing your profile…</div>
+          </div>
+        </div>
+        <div id="cgAiInsight">
+          <div class="cg-skel cg-skel-line w90"></div>
+          <div class="cg-skel cg-skel-line w70"></div>
+          <div class="cg-skel cg-skel-line w80"></div>
+          <div class="cg-skel cg-skel-line w60"></div>
+        </div>
+      </div>
+
+      <div class="cg-dash-grid">
+        <!-- Left -->
+        <div class="cg-dash-left">
+          <div class="cg-card">
+            <div class="cg-card-title">My Profile</div>
+            <div class="cg-profile-av" id="cgDAvatar">?</div>
+            <div class="cg-profile-name" id="cgDName">—</div>
+            <div class="cg-profile-sub" id="cgDSub">—</div>
+            <div class="cg-profile-badge" id="cgDCurric">📘 —</div>
+            <div class="cg-divider"></div>
+            <div class="cg-info-row"><span class="cg-info-lbl">Goal</span><span class="cg-info-val" id="cgDGoal">—</span></div>
+            <div class="cg-info-row"><span class="cg-info-lbl">Top Match</span><span class="cg-info-val" id="cgDTopMatch" style="color:var(--cg-forest)">—</span></div>
+            <div class="cg-divider"></div>
+            <div class="cg-card-title" style="margin-bottom:10px">Interests</div>
+            <div style="display:flex;flex-wrap:wrap;gap:6px" id="cgDChips"></div>
+          </div>
+
+          <div class="cg-card">
+            <div class="cg-card-title">Top Career Matches</div>
+            <div id="cgMatchRings">
+              <div class="cg-skel cg-skel-line w80"></div>
+              <div class="cg-skel cg-skel-line w60"></div>
+              <div class="cg-skel cg-skel-line w70"></div>
+            </div>
+          </div>
+
+          <div class="cg-card">
+            <div class="cg-card-title">Academic Performance</div>
+            <div id="cgDGrades"></div>
+          </div>
+        </div>
+
+        <!-- Right -->
+        <div class="cg-dash-right">
+          <div class="cg-card">
+            <div class="cg-card-title" style="justify-content:space-between">
+              AI Recommendations
+              <span class="cg-chip gold" id="cgRecBadge" style="font-family:var(--fb);font-size:11px">Personalised for you</span>
+            </div>
+            <div class="cg-rec-grid" id="cgRecGrid">
+              <div style="background:var(--cg-bone);border-radius:var(--radius);padding:20px"><div class="cg-skel cg-skel-line w60"></div><div class="cg-skel cg-skel-line w90"></div><div class="cg-skel cg-skel-line w70"></div></div>
+              <div style="background:var(--cg-bone);border-radius:var(--radius);padding:20px"><div class="cg-skel cg-skel-line w60"></div><div class="cg-skel cg-skel-line w90"></div><div class="cg-skel cg-skel-line w70"></div></div>
+              <div style="background:var(--cg-bone);border-radius:var(--radius);padding:20px"><div class="cg-skel cg-skel-line w60"></div><div class="cg-skel cg-skel-line w90"></div><div class="cg-skel cg-skel-line w70"></div></div>
+              <div style="background:var(--cg-bone);border-radius:var(--radius);padding:20px"><div class="cg-skel cg-skel-line w60"></div><div class="cg-skel cg-skel-line w90"></div><div class="cg-skel cg-skel-line w70"></div></div>
+            </div>
+          </div>
+
+          <div class="cg-card">
+            <div class="cg-card-title">Skills Gap Analysis</div>
+            <div class="cg-gap-grid" id="cgGapGrid">
+              <div class="cg-gap-box have"><div class="cg-gap-box-lbl">✓ You have</div><div class="cg-gap-items"><div class="cg-skel cg-skel-line w80"></div><div class="cg-skel cg-skel-line w60"></div></div></div>
+              <div class="cg-gap-box build"><div class="cg-gap-box-lbl">→ Build next</div><div class="cg-gap-items"><div class="cg-skel cg-skel-line w80"></div><div class="cg-skel cg-skel-line w60"></div></div></div>
+            </div>
+          </div>
+
+          <div class="cg-card">
+            <div class="cg-card-title">Recommended University Pathways</div>
+            <div id="cgUniRecs"><div class="cg-skel cg-skel-line w90"></div><div class="cg-skel cg-skel-line w70"></div></div>
+          </div>
+
+          <button class="cg-btn cg-btn-outline" style="width:100%;justify-content:center" onclick="cgResetDash()">
+            ← Update my profile
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PAGE: SOMA ═══ -->
+<div class="cg-page" id="cg-pg-soma">
+  <div class="cg-soma-hero">
+    <div class="cg-soma-hero-bg"></div>
+    <div class="cg-soma-hero-content">
+      <div class="cg-soma-tag">📖 Career Learning</div>
+      <h1 class="cg-soma-title">Soma — <em>Learn</em><br>about careers</h1>
+      <p class="cg-soma-sub">Explore careers by subject. See what professionals actually do, what they earn in Kenya, and ask the AI anything.</p>
+    </div>
+  </div>
+
+  <!-- Subject filter tabs -->
+  <div class="cg-soma-tabs">
+    <div class="cg-soma-tabs-inner">
+      <button class="cg-soma-tab on" onclick="cgSomaFilter('all', this)">📋 All Subjects</button>
+      <button class="cg-soma-tab" onclick="cgSomaFilter('maths', this)">📐 Mathematics</button>
+      <button class="cg-soma-tab" onclick="cgSomaFilter('sciences', this)">🔬 Sciences</button>
+      <button class="cg-soma-tab" onclick="cgSomaFilter('languages', this)">📝 Languages</button>
+      <button class="cg-soma-tab" onclick="cgSomaFilter('humanities', this)">🌍 Humanities</button>
+      <button class="cg-soma-tab" onclick="cgSomaFilter('commerce', this)">📊 Commerce</button>
+      <button class="cg-soma-tab" onclick="cgSomaFilter('technical', this)">🔧 Technical</button>
+    </div>
+  </div>
+
+  <div class="cg-soma-content">
+    <div class="cg-soma-grid">
+      <!-- Sidebar -->
+      <div class="cg-soma-sidebar cg-card">
+        <div class="cg-soma-filter-title">Filter Careers</div>
+        <div class="cg-soma-filter-group">
+          <div class="cg-soma-filter-label">By Sector</div>
+          <div class="cg-soma-filter-opts">
+            <button class="cg-soma-fopt on" onclick="cgSomaSector('all',this)"><span class="cg-fopt-icon">🌐</span>All Careers<span class="cg-fopt-count">12</span></button>
+            <button class="cg-soma-fopt" onclick="cgSomaSector('tech',this)"><span class="cg-fopt-icon">💻</span>Technology<span class="cg-fopt-count">3</span></button>
+            <button class="cg-soma-fopt" onclick="cgSomaSector('health',this)"><span class="cg-fopt-icon">🏥</span>Healthcare<span class="cg-fopt-count">2</span></button>
+            <button class="cg-soma-fopt" onclick="cgSomaSector('business',this)"><span class="cg-fopt-icon">💼</span>Business<span class="cg-fopt-count">3</span></button>
+            <button class="cg-soma-fopt" onclick="cgSomaSector('law',this)"><span class="cg-fopt-icon">⚖️</span>Law & Gov<span class="cg-fopt-count">2</span></button>
+            <button class="cg-soma-fopt" onclick="cgSomaSector('creative',this)"><span class="cg-fopt-icon">🎨</span>Creative<span class="cg-fopt-count">2</span></button>
+          </div>
+        </div>
+        <div class="cg-soma-filter-group">
+          <div class="cg-soma-filter-label">Salary Range</div>
+          <div class="cg-soma-filter-opts">
+            <button class="cg-soma-fopt"><span class="cg-fopt-icon">💰</span>Entry (30K–80K)</button>
+            <button class="cg-soma-fopt"><span class="cg-fopt-icon">💰💰</span>Mid (80K–200K)</button>
+            <button class="cg-soma-fopt"><span class="cg-fopt-icon">💰💰💰</span>Senior (200K+)</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Career cards -->
+      <div class="cg-soma-cards" id="cgSomaCards"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PAGE: PARENTS BLOG ═══ -->
+<div class="cg-page" id="cg-pg-parents">
+  <div class="cg-blog-hero">
+    <div class="cg-blog-hero-bg"></div>
+    <div class="cg-blog-hero-inner">
+      <div class="cg-blog-hero-tag">👨‍👩‍👧 For Parents</div>
+      <h1 class="cg-blog-hero-title">Guiding your child's<br>career journey</h1>
+      <p class="cg-blog-hero-sub">Practical, honest guides for Kenyan parents — from CBC transitions to university costs, new career paths, and how to have career conversations that actually help.</p>
+    </div>
+  </div>
+
+  <div class="cg-blog-layout">
+    <div class="cg-blog-grid">
+      <!-- Main content -->
+      <div>
+        <!-- Featured -->
+        <div class="cg-blog-featured" onclick="cgOpenBlogPost('featured')">
+          <div class="cg-blog-feat-visual">📘</div>
+          <div class="cg-blog-feat-body">
+            <div class="cg-blog-feat-tag">📌 Must Read</div>
+            <div class="cg-blog-feat-title">The CBC Parent's Complete Guide to Career Planning in 2025</div>
+            <div class="cg-blog-feat-excerpt">Kenya's new Competency-Based Curriculum has changed everything — but most parents are still giving advice based on the old 8-4-4 system. Here's what you actually need to know to guide your child effectively in this new era.</div>
+            <div class="cg-blog-feat-meta">
+              <div class="cg-blog-feat-av">CG</div>
+              <div class="cg-blog-feat-byline">By <strong>Career Genie Editorial Team</strong> · 12 min read</div>
+              <div class="cg-blog-feat-read">Read →</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Post list -->
+        <div class="cg-blog-posts" id="cgBlogPosts"></div>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="cg-blog-sidebar">
+        <div class="cg-parent-tips">
+          <div class="cg-parent-tips-title">🧭 Quick Tips for Parents</div>
+          <div class="cg-parent-tip-item"><span class="cg-parent-tip-ico">✅</span>Ask "what do you enjoy?" before "what will you earn?"</div>
+          <div class="cg-parent-tip-item"><span class="cg-parent-tip-ico">✅</span>New careers like UX design and data science pay extremely well</div>
+          <div class="cg-parent-tip-item"><span class="cg-parent-tip-ico">✅</span>HELB loans and scholarships exist for all public university students</div>
+          <div class="cg-parent-tip-item"><span class="cg-parent-tip-ico">✅</span>CBC pathways include technical routes that lead to great careers</div>
+          <div class="cg-parent-tip-item"><span class="cg-parent-tip-ico">✅</span>A student's interests are the strongest predictor of career success</div>
+        </div>
+
+        <div class="cg-card">
+          <div class="cg-blog-sidebar-title">Browse by Topic</div>
+          <div class="cg-blog-cats">
+            <button class="cg-blog-cat on" onclick="cgFilterBlog('all',this)">All Posts <span class="cg-blog-cat-count">8</span></button>
+            <button class="cg-blog-cat" onclick="cgFilterBlog('cbc',this)">CBC & Curriculum <span class="cg-blog-cat-count">3</span></button>
+            <button class="cg-blog-cat" onclick="cgFilterBlog('university',this)">University Pathways <span class="cg-blog-cat-count">2</span></button>
+            <button class="cg-blog-cat" onclick="cgFilterBlog('conversations',this)">Career Conversations <span class="cg-blog-cat-count">2</span></button>
+            <button class="cg-blog-cat" onclick="cgFilterBlog('finance',this)">Education Finance <span class="cg-blog-cat-count">1</span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cg-footer">
+    <div class="cg-footer-logo">Career<em>Genie</em> Kenya</div>
+    <p>Empowering Kenya's next generation 🇰🇪</p>
+  </div>
+</div>
+
+</div><!-- #cg-root -->
+
+<!-- Modal overlay -->
+<div class="cg-modal-overlay" id="cgModal" onclick="cgCloseModalOut(event)">
+  <div class="cg-modal" id="cgModalInner" style="max-width:680px">
+    <button class="cg-modal-close" onclick="cgCloseModal()">✕</button>
+    <div id="cgModalContent"></div>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════
+//  CAREER GENIE KENYA — CORE JAVASCRIPT
+//  WordPress adaptation: replace cgApiCall() endpoint with your
+//  Netlify function URL or WordPress REST API proxy route.
+// ═══════════════════════════════════════════════════════════════
+
+// ── CONFIG ──────────────────────────────────────────────────────
+// For WordPress: set window.CG_API_ENDPOINT to your proxy URL.
+// e.g. window.CG_API_ENDPOINT = '/wp-json/careergenie/v1/ask';
+// ────────────────────────────────────────────────────────────────
+const CG_ENDPOINT = window.CG_API_ENDPOINT || '/.netlify/functions/claude';
+
+// ── DATA ────────────────────────────────────────────────────────
+const CG_CAREERS = [
+  {id:'softeng',sector:'Technology',name:'Software Engineer',emoji:'💻',subject:'Computer Studies / Mathematics',subjects:['maths','technical'],cat:'tech',desc:'Design and build the software systems powering Kenya — from mobile banking to health apps and e-commerce platforms.',salary:'KSh 100K–600K/mo',growth:'Explosive Growth',dayLife:['9AM: Morning standup with team','10AM: Writing code — new payment feature for M-PESA integration','12PM: Code review with a colleague','2PM: User testing session with pilot farmers','4PM: Debugging and documentation','5PM: Mentoring a junior developer'],subjects_needed:'Strong Mathematics (algebra, logic), Computer Studies helpful but not required.',roadmap:[{t:'Learn programming basics',b:'Python or JavaScript. Free: freeCodeCamp, The Odin Project.',d:'6 months'},{t:'Study Computer Science',b:'Strathmore, UoN, JKUAT or Moringa School / Andela.',d:'3–4 years'},{t:'Build a GitHub portfolio',b:'3–5 real projects. Contribute to Kenyan open-source.',d:'Ongoing'},{t:'Intern at a tech company',b:'Safaricom, Google Nairobi, Twiga Foods, 300+ iHub startups.',d:'6–12 months'},{t:'Scale or specialise',b:'AI/ML, mobile, cybersecurity, or product management.',d:'Ongoing'}]},
+  {id:'doctor',sector:'Healthcare',name:'Medical Doctor',emoji:'🩺',subject:'Biology / Chemistry',subjects:['sciences'],cat:'health',desc:'Diagnose and treat illness, serve communities across Kenya, and tackle the healthcare challenges of a growing nation.',salary:'KSh 120K–400K/mo',growth:'Always in Demand',dayLife:['7AM: Ward rounds — check overnight patients','9AM: Outpatient clinic — 20+ patients','1PM: Emergency case — stabilise and refer','3PM: Consult on complex case with specialist','5PM: Documentation and patient notes','7PM: On-call for emergencies'],subjects_needed:'Excellent Biology and Chemistry — A grades recommended. Physics and Maths also valuable.',roadmap:[{t:'Excel in KCSE Sciences',b:'Aim for A in Biology, Chemistry, Physics, Maths.',d:'Form 1–4'},{t:'Apply to MBChB programme',b:'University of Nairobi (top choice), Moi University, Kabarak.',d:'6 years'},{t:'Internship at KNH or county hospital',b:'One-year mandatory rotational internship.',d:'1 year'},{t:'Specialise',b:'Surgery, Paediatrics, Oncology, Psychiatry, Family Medicine.',d:'3–6 years'},{t:'Global or rural practice',b:'UK NHS, USA USMLE pathway, or rural health leadership in Kenya.',d:'Optional'}]},
+  {id:'fintech',sector:'Business & Technology',name:'FinTech Product Manager',emoji:'📱',subject:'Business Studies / Mathematics',subjects:['maths','commerce'],cat:'business',desc:'Design and launch digital financial products for the country that invented mobile money — M-PESA has made Kenya a global FinTech leader.',salary:'KSh 200K–500K/mo',growth:'Explosive Growth',dayLife:['8AM: Data review — user metrics on new savings feature','10AM: Sprint planning with engineering team','12PM: User interview with informal trader in Gikomba','2PM: Strategy session with CEO on product roadmap','4PM: Write product specs for next feature','5PM: Industry event — FinTech Kenya meetup'],subjects_needed:'Business Studies, Mathematics/Statistics, Economics. Computer Studies is a strong bonus.',roadmap:[{t:'Study Business, Finance or CS',b:'UoN, Strathmore or KU. Add economics and data electives.',d:'3–4 years'},{t:'Learn product management',b:'Google PM Certificate, Product School.',d:'6 months'},{t:'Intern at Safaricom or Equity Bank Tech',b:'Deep dive into M-PESA API and African payment systems.',d:'6 months'},{t:'Build a prototype',b:'Design a micro-lending or SACCO management app.',d:'3 months'},{t:'Join the ecosystem',b:'Flutterwave, Cellulant, Pesa Link, Stripe Africa.',d:'Ongoing'}]},
+  {id:'lawyer',sector:'Law & Governance',name:'Advocate / Lawyer',emoji:'⚖️',subject:'English / History',subjects:['languages','humanities'],cat:'law',desc:'Argue cases, draft laws, protect rights and shape policy in one of East Africa\'s most dynamic legal systems.',salary:'KSh 80K–350K/mo',growth:'Steady Demand',dayLife:['8AM: Review case files for morning hearing','10AM: Appear before High Court','12PM: Meet client — brief them on case strategy','2PM: Research and legal writing','4PM: Meet junior associate to review contract','6PM: Continuing legal education lecture'],subjects_needed:'Excellent English (written and spoken), History and CRE for critical thinking and debate skills.',roadmap:[{t:'Achieve B+ in KCSE',b:'Focus on English, History, CRE. Debate club is invaluable.',d:'Form 1–4'},{t:'LLB at Strathmore, UoN, or Kabarak',b:'4-year law degree. Specialise in corporate, criminal, or tech law.',d:'4 years'},{t:'Kenya School of Law (KSL)',b:'Mandatory post-graduate Advocates Training Programme (ATP).',d:'2 years'},{t:'Pupillage at a law firm',b:'CMS, Anjarwalla & Khanna, Bowmans, or Hamilton Harrison.',d:'1 year'},{t:'Specialise or go independent',b:'Corporate law, legal tech, human rights, or start your own firm.',d:'Ongoing'}]},
+  {id:'journalist',sector:'Media',name:'Digital Journalist',emoji:'📰',subject:'English / Kiswahili',subjects:['languages'],cat:'creative',desc:'Tell Kenya\'s stories to the world — through investigative reporting, podcasting, video journalism and digital media.',salary:'KSh 60K–200K/mo',growth:'Evolving Sector',dayLife:['7AM: News brief — scan Kenya & global headlines','9AM: Pitch ideas in editorial meeting','10AM: Field reporting — interview county official','1PM: Write and file 800-word story','3PM: Record podcast episode','5PM: Manage social media audience engagement'],subjects_needed:'Excellent English and/or Kiswahili. History and Geography broaden your worldview for context.',roadmap:[{t:'Study Journalism or Communication',b:'Daystar University, USIU, or University of Nairobi.',d:'3–4 years'},{t:'Start now — publish something',b:'Launch a blog, YouTube channel or community newspaper.',d:'Start today'},{t:'Intern at Nation Media, Standard or NTV',b:'Kenya\'s main newsrooms offer structured programmes.',d:'3–6 months'},{t:'Build digital skills',b:'SEO, video editing (DaVinci), data journalism, social analytics.',d:'6 months'},{t:'Find your beat',b:'Investigative, climate, health, or business journalism are underserved.',d:'Ongoing'}]},
+  {id:'engineer',sector:'Engineering',name:'Civil / Structural Engineer',emoji:'🏗️',subject:'Physics / Mathematics',subjects:['maths','sciences'],cat:'tech',desc:'Design and build Kenya\'s infrastructure — roads, bridges, dams, high-rises and the cities of the future.',salary:'KSh 80K–350K/mo',growth:'Steady Growth',dayLife:['7AM: Site visit — inspect ongoing road construction','9AM: CAD modelling — new bridge design','11AM: Meeting with government client — KENHA','1PM: Structural calculations and load analysis','3PM: Review contractor submissions','4PM: Report writing for environmental impact'],subjects_needed:'Excellent Physics and Mathematics — both required for engineering admission. Chemistry is also useful.',roadmap:[{t:'Achieve strong KCSE Sciences',b:'A grades in Maths and Physics are essential for engineering entry.',d:'Form 1–4'},{t:'Study Engineering',b:'UoN, Jomo Kenyatta (JKUAT), Dedan Kimathi or Moi University.',d:'4–5 years'},{t:'Register with EBK',b:'Engineers Board of Kenya graduate registration is mandatory.',d:'After degree'},{t:'Intern on major projects',b:'Kenya National Highways Authority, Kenya Power, Mombasa port expansion.',d:'6–12 months'},{t:'Get licensed and specialise',b:'Structural, transport, water resources, or geotechnical engineering.',d:'Ongoing'}]},
+  {id:'datascience',sector:'Technology',name:'Data Scientist',emoji:'📊',subject:'Mathematics / Statistics',subjects:['maths'],cat:'tech',desc:'Transform raw data into business decisions. Every major Kenyan institution now needs people who can read and explain data.',salary:'KSh 150K–450K/mo',growth:'Explosive Growth',dayLife:['8AM: Pull and clean yesterday\'s transaction data','9AM: Build predictive model for customer churn','11AM: Present findings to executive team','1PM: Collaborate with software team on data pipeline','3PM: Work on Kaggle competition to sharpen skills','5PM: Update documentation and dashboards'],subjects_needed:'Strong Mathematics — especially Statistics, Algebra and Calculus. Computer Studies is a major advantage.',roadmap:[{t:'Build maths & stats foundation',b:'Aim for A in Maths. Statistics electives are invaluable.',d:'High school'},{t:'Study Statistics or Computer Science',b:'UoN Statistics Dept., Strathmore Institute of Mathematical Sciences.',d:'3–4 years'},{t:'Master the data stack',b:'Python (pandas, scikit-learn), SQL, Tableau. Practice on Kaggle.',d:'6 months'},{t:'Intern in analytics',b:'Equity Bank, Safaricom, Kenya Revenue Authority, KEMRI, Amref.',d:'6 months'},{t:'Get certified',b:'Google Data Analytics Certificate, IBM Data Science Professional.',d:'3 months'}]},
+  {id:'teacher',sector:'Education',name:'Teacher / Educator',emoji:'👩‍🏫',subject:'Any Subject',subjects:['all'],cat:'business',desc:'Shape the next generation of Kenyan leaders. Teaching is one of the most impactful and secure careers — and increasingly well-paid.',salary:'KSh 40K–150K/mo',growth:'Steady Demand',dayLife:['6:30AM: Prep materials and morning assembly','8AM: Teach Form 3 Mathematics','10AM: Marking and feedback','11AM: Career guidance session with students','1PM: Staff meeting on curriculum','3PM: Extracurricular supervision — debate club','5PM: Continuous professional development reading'],subjects_needed:'Any subject can lead to teaching. Excellence in your chosen subject matters most.',roadmap:[{t:'Identify your subject specialty',b:'Teach what you love and know deeply — this shows in results.',d:'High school'},{t:'Study Education at university',b:'Kenyatta University (top choice), Maseno, Moi or USIU.',d:'4 years'},{t:'Register with TSC',b:'Teachers Service Commission registration is mandatory in Kenya.',d:'After degree'},{t:'Gain experience',b:'Start with public or private school. Build a track record.',d:'2–3 years'},{t:'Advance and specialise',b:'School leadership, curriculum development, EdTech, or private tutoring empire.',d:'Ongoing'}]},
+  {id:'agritech',sector:'Agriculture',name:'AgriTech Entrepreneur',emoji:'🌱',subject:'Agriculture / Biology',subjects:['sciences','technical'],cat:'business',desc:'Technology is transforming Kenyan farming. Drones, IoT sensors, marketplace apps and climate data are creating entirely new careers.',salary:'KSh 60K–300K/mo',growth:'High Potential',dayLife:['7AM: Check sensor data from pilot farm in Nakuru','9AM: Video call with investor — pitch deck review','11AM: Visit farmer partner — test new soil app','1PM: Code review with tech team','3PM: Write grant proposal for AfDB climate fund','5PM: Community forum with 50 farmer cooperatives'],subjects_needed:'Agriculture, Biology, and Geography. Computer Studies is increasingly important for agri-tech.',roadmap:[{t:'Study Agricultural Science',b:'Egerton University (best in Kenya), UoN Agriculture, or Kenyatta.',d:'4 years'},{t:'Learn tech skills alongside',b:'Basic programming, data analysis for agri-sensors and market apps.',d:'Parallel to degree'},{t:'Understand the ecosystem',b:'Study M-Farm, Twiga Foods, FarmDrive, Safaricom Digifarm.',d:'Ongoing'},{t:'Join or found a startup',b:'iHub, Nairobi Garage, iBizAfrica. Apply to Anzisha Prize.',d:'Year 2–3'},{t:'Access funding',b:'Safaricom Spark, KCB Foundation, USAID East Africa, Village Capital.',d:'Year 3+'}]},
+  {id:'uxdesign',sector:'Design',name:'UX / Product Designer',emoji:'🎨',subject:'Art & Design / Computer Studies',subjects:['technical','humanities'],cat:'creative',desc:'Create the digital experiences that millions of Kenyans use every day — apps, websites, and service interfaces.',salary:'KSh 80K–300K/mo',growth:'High Growth',dayLife:['9AM: Review user research from last week','10AM: Wireframe new onboarding flow in Figma','12PM: User testing session — watch 5 users use the app','2PM: Iterate on designs based on feedback','4PM: Collaborate with engineers on handoff','5PM: Update portfolio and personal brand'],subjects_needed:'Art & Design gives visual foundation. Computer Studies helps with tools. Psychology and English improve user empathy.',roadmap:[{t:'Learn design fundamentals',b:'Typography, colour, layout. Free: Canva Design School, Google UX Certificate.',d:'3 months'},{t:'Master Figma',b:'Industry standard tool. Figma Academy is free.',d:'3 months'},{t:'Build a portfolio with case studies',b:'Design apps solving Kenyan problems — matatu booking, healthcare, payments.',d:'6 months'},{t:'Intern or freelance',b:'Kenya\'s growing product companies. Also Upwork for global clients.',d:'6 months'},{t:'Specialise',b:'Product design, service design, or accessibility design.',d:'Ongoing'}]},
+  {id:'publichealth',sector:'Healthcare',name:'Public Health Officer',emoji:'🏥',subject:'Biology / Geography',subjects:['sciences','humanities'],cat:'health',desc:'Protect the health of entire communities — from disease surveillance to vaccination campaigns, clean water and nutrition policy.',salary:'KSh 60K–200K/mo',growth:'Critical Need',dayLife:['7AM: Morning briefing on disease surveillance data','9AM: Community health worker training in Mathare','11AM: County health board presentation — TB data','1PM: Field visit — inspect water quality in informal settlement','3PM: Report writing for Ministry of Health','5PM: Review incoming malaria case reports'],subjects_needed:'Biology and Geography are core. Chemistry, Maths (for statistics), and Social Studies support the work.',roadmap:[{t:'Study Public Health or Nursing',b:'UoN School of Public Health, Kenya Medical Training College (KMTC).',d:'3–4 years'},{t:'Register with relevant body',b:'Kenya Medical Laboratory Technicians Board or NCK.',d:'After degree'},{t:'Work with county health departments',b:'All 47 counties have health departments actively recruiting.',d:'Entry level'},{t:'Specialise in a health programme',b:'HIV/AIDS, TB, maternal health, nutrition, or epidemiology.',d:'2–3 years'},{t:'International health organisations',b:'WHO, MSF, Amref Health Africa, KEMRI all hire public health professionals.',d:'Ongoing'}]},
+  {id:'policyanalyst',sector:'Law & Governance',name:'Policy Analyst / Economist',emoji:'🏛️',subject:'Economics / History',subjects:['humanities','commerce'],cat:'law',desc:'Shape the policies that govern Kenya — fiscal policy, trade, health systems, education reform and infrastructure investment.',salary:'KSh 80K–350K/mo',growth:'Steady Demand',dayLife:['8AM: Read economic briefs and government gazette','9AM: Analyse budget allocation data','11AM: Brief Treasury official on new policy proposal','1PM: Write policy paper — food security in arid counties','3PM: Attend parliamentary committee hearing','5PM: Network at think tank event — Nairobi'],subjects_needed:'History, Economics and Geography are key. Excellent English for writing policy documents. Maths for quantitative analysis.',roadmap:[{t:'Study Economics, Law or Political Science',b:'UoN, USIU, or Strathmore. Quantitative skills are essential.',d:'4 years'},{t:'Intern at government or NGO',b:'Ministry of Finance, KNBS, UN Habitat, International IDEA.',d:'6 months'},{t:'Develop research and writing skills',b:'Policy briefs, evidence-based reports, public presentations.',d:'Ongoing'},{t:'Pursue a Masters degree',b:'MPP at UoN, LSE, Blavatnik School of Government (Oxford).',d:'2 years'},{t:'Join the ecosystem',b:'World Bank, IMF, KRA, Treasury, think tanks like KIPPRA.',d:'Ongoing'}]}
+];
+
+const CG_BLOG_POSTS = [
+  {id:'cbc-guide',cat:'cbc',thumb:'📘',thumbBg:'#1B5FA3',title:'CBC vs 8-4-4: What Actually Changed for Your Child\'s Career?',excerpt:'The new curriculum isn\'t just about new subjects — it\'s a fundamental shift in how career pathways are structured. Here\'s what every parent needs to understand.',author:'CG Editorial',date:'March 2025',read:'8 min'},
+  {id:'uni-costs',cat:'university',thumb:'🎓',thumbBg:'#1A5C38',title:'University Costs in Kenya 2025: A Realistic Parent\'s Budget',excerpt:'From HELB to scholarships to private university fees — we break down the real numbers so you can plan ahead without panic.',author:'Sarah Kamau, CFP',date:'February 2025',read:'10 min'},
+  {id:'new-careers',cat:'conversations',thumb:'💡',thumbBg:'#C8922A',title:'"My child wants to be a UX Designer" — And Other New Careers Explained',excerpt:'Data scientists, product managers, UX designers — these weren\'t careers 15 years ago. Here\'s what they actually do and what they earn in Kenya today.',author:'CG Editorial',date:'January 2025',read:'7 min'},
+  {id:'conversation',cat:'conversations',thumb:'💬',thumbBg:'#5C3D9E',title:'How to Have a Career Conversation with Your Teenager Without a Fight',excerpt:'Most career conversations go wrong in the first 60 seconds. Here are evidence-based strategies from career counsellors that actually work.',author:'Dr. James Odhiambo',date:'December 2024',read:'6 min'},
+  {id:'tech-careers',cat:'cbc',thumb:'🖥️',thumbBg:'#0F1923',title:'Why Tech Careers Don\'t Require a Computer Studies Grade',excerpt:'Your child doesn\'t need to have excelled in Computer Studies to have a successful tech career. Here\'s the truth about how the industry actually hires.',author:'CG Editorial',date:'November 2024',read:'5 min'},
+  {id:'helb',cat:'finance',thumb:'💰',thumbBg:'#A02020',title:'HELB Loans in 2025: Everything Parents Need to Know',excerpt:'The Higher Education Loans Board has changed. New caps, new repayment terms, what qualifies, and how to supplement with scholarships.',author:'CG Editorial',date:'October 2024',read:'9 min'},
+  {id:'tvet',cat:'cbc',thumb:'🔧',thumbBg:'#1A5C38',title:'Is TVET Right for My Child? The Honest Parent\'s Answer',excerpt:'Technical and vocational education is no longer a "last resort" — top TVET graduates earn more than many university graduates. Here\'s what to know.',author:'Peter Mwangi',date:'September 2024',read:'7 min'},
+  {id:'intl-uni',cat:'university',thumb:'✈️',thumbBg:'#1B5FA3',title:'International University vs Kenyan University: A Cost-Benefit Analysis',excerpt:'Before spending KSh 8M on an international degree, read this honest comparison of outcomes, costs, and long-term career impact in the Kenyan market.',author:'CG Editorial',date:'August 2024',read:'11 min'},
+];
+
+// ── STATE ───────────────────────────────────────────────────────
+let cgProfile = {};
+let cgCurrentSomaCareerId = null;
+let cgBlogFilter = 'all';
+let cgSomaCatFilter = 'all';
+let cgSomaSubjectFilter = 'all';
+
+// ── NAVIGATION ─────────────────────────────────────────────────
+function cgNav(page) {
+  document.querySelectorAll('.cg-page').forEach(p => p.classList.remove('cg-active'));
+  document.querySelectorAll('.cg-navbtn').forEach(b => b.classList.remove('cg-active'));
+  document.getElementById('cg-pg-' + page)?.classList.add('cg-active');
+  document.querySelectorAll('.cg-navbtn').forEach(b => {
+    if (b.textContent.toLowerCase().includes(page === 'home' ? 'home' : page === 'student' ? 'profile' : page === 'soma' ? 'soma' : 'parents')) {
+      b.classList.add('cg-active');
+    }
+  });
+  if (page === 'soma') cgRenderSoma();
+  if (page === 'parents') cgRenderBlog();
+  window.scrollTo(0, 0);
+}
+function cgToggleMNav() { document.getElementById('cgMNav').classList.toggle('open'); }
+
+// ── SETUP HELPERS ──────────────────────────────────────────────
+function cgToggleInt(el) { el.classList.toggle('on'); }
+function cgSelectGoal(el) {
+  document.querySelectorAll('.cg-goal-opt').forEach(o => { o.classList.remove('on'); o.querySelector('.cg-goal-chk').textContent = ''; });
+  el.classList.add('on'); el.querySelector('.cg-goal-chk').textContent = '✓';
+}
+function cgAddRow() {
+  const r = document.createElement('div');
+  r.className = 'cg-grade-row';
+  r.innerHTML = `
+    <select class="cg-select"><option>Mathematics</option><option>Biology</option><option>Chemistry</option><option>Physics</option><option>English</option><option>Kiswahili</option><option>Business Studies</option><option>Geography</option><option>History</option><option>Computer Studies</option><option>Agriculture</option><option>Art & Design</option></select>
+    <select class="cg-select"><option>A (90–100%)</option><option>A- (80–89%)</option><option selected>B+ (75–79%)</option><option>B (70–74%)</option><option>B- (65–69%)</option><option>C+ (60–64%)</option><option>C (55–59%)</option></select>
+    <button class="cg-grade-del" onclick="cgDelRow(this)">×</button>`;
+  document.getElementById('cgGrades').appendChild(r);
+}
+function cgDelRow(btn) {
+  const rows = document.getElementById('cgGrades').querySelectorAll('.cg-grade-row');
+  if (rows.length > 1) btn.closest('.cg-grade-row').remove();
+}
+
+// ── COLLECT PROFILE ─────────────────────────────────────────────
+function cgCollect() {
+  const name = document.getElementById('cgName').value.trim() || 'Student';
+  const form = document.getElementById('cgForm').value || 'Form 3';
+  const curric = document.getElementById('cgCurric').value || 'Kenya National (CBC/KCSE)';
+  const county = document.getElementById('cgCounty').value || 'Nairobi';
+  const bio = document.getElementById('cgBio').value.trim();
+  const interests = [...document.querySelectorAll('.cg-int-btn.on')].map(b => b.textContent.replace(/^[^\s]+\s/, '').trim());
+  const goal = document.querySelector('.cg-goal-opt.on .cg-goal-txt strong')?.textContent || 'University Degree';
+  const grades = [...document.querySelectorAll('.cg-grade-row')].map(r => {
+    const s = r.querySelectorAll('select');
+    return { subject: s[0].value, grade: s[1].value };
+  });
+  return { name, form, curric, county, bio, interests, goal, grades };
+}
+
+// ── AI ENGINE ───────────────────────────────────────────────────
+async function cgApiCall(messages, maxTokens = 900) {
+  try {
+    const r = await fetch(CG_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: maxTokens,
+        messages
+      })
+    });
+    const d = await r.json();
+    // Handle both direct Anthropic API and proxy responses
+    return d.content?.[0]?.text || d.text || '';
+  } catch (e) {
+    console.error('Career Genie API error:', e);
+    return '';
+  }
+}
+
+async function cgRunAI() {
+  cgProfile = cgCollect();
+  const btn = document.getElementById('cgGenBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<span style="display:inline-flex;align-items:center;gap:8px"><span class="cg-dots" style="color:rgba(255,255,255,0.6)"><span>•</span><span>•</span><span>•</span></span> Analysing your profile…</span>';
+
+  // Show dashboard skeleton
+  document.getElementById('cgSetup').style.display = 'none';
+  document.getElementById('cgDash').style.display = 'block';
+  cgPopulateStatic();
+
+  const grades = cgProfile.grades.map(g => `${g.subject}: ${g.grade}`).join(', ');
+  const interests = cgProfile.interests.join(', ') || 'not specified';
+
+  const ctx = `You are Career Genie, Kenya's leading AI career counsellor for high school students. Always give Kenya-specific advice with real institutions, companies, and KSh salary ranges.
+
+Student profile:
+- Name: ${cgProfile.name}
+- Form/Year: ${cgProfile.form}  
+- Curriculum: ${cgProfile.curric}
+- County: ${cgProfile.county}
+- Interests: ${interests}
+- Grades: ${grades}
+- Goal: ${cgProfile.goal}
+- About them: ${cgProfile.bio || 'Not provided'}`;
+
+  // Run 3 parallel AI calls
+  const [insight, recsRaw, gapRaw] = await Promise.all([
+    cgApiCall([{role:'user',content:`${ctx}
+
+Write a warm, specific, 3–4 sentence career analysis for this student. Mention their strongest subject(s), their standout interests, and 2–3 career directions that fit them. Include a Kenya-specific opportunity or growth trend that relates to their profile. Use **bold** for career names and key figures. Be encouraging but realistic.`}], 450),
+
+    cgApiCall([{role:'user',content:`${ctx}
+
+Return ONLY a valid JSON array of 6 recommendation objects. No markdown. No explanation. Just the raw JSON array.
+
+Format:
+[{"type":"career","title":"...","desc":"...2 Kenya-specific sentences...","match":"...e.g. 96% match...","careerId":"one of: softeng|doctor|fintech|lawyer|journalist|engineer|datascience|teacher|agritech|uxdesign|publichealth|policyanalyst or null"},...]
+
+Make exactly: 2 career, 2 skill, 1 univ, 1 cert recommendations. All personalised to this student.`}], 700),
+
+    cgApiCall([{role:'user',content:`${ctx}
+
+Return ONLY valid JSON. No markdown. No explanation.
+
+{"have":["skill 1","skill 2","skill 3","skill 4"],"build":["skill 1","skill 2","skill 3","skill 4"],"topMatches":[{"career":"Name","score":94,"reason":"one sentence specific why"},{"career":"Name","score":87,"reason":"one sentence"},{"career":"Name","score":81,"reason":"one sentence"}],"uniPaths":[{"name":"University Name","programme":"Degree Programme","note":"one actionable sentence"},{"name":"University Name","programme":"Degree Programme","note":"one actionable sentence"}]}`}], 600)
+  ]);
+
+  // Render
+  cgRenderInsight(insight);
+
+  let recs = [];
+  try { recs = JSON.parse(recsRaw.replace(/```json|```/g, '').trim()); } catch(e) {}
+  cgRenderRecs(recs);
+
+  let gap = {};
+  try { gap = JSON.parse(gapRaw.replace(/```json|```/g, '').trim()); } catch(e) {}
+  cgRenderGap(gap);
+  cgRenderRings(gap.topMatches || []);
+  cgRenderUni(gap.uniPaths || []);
+
+  // Progress score
+  const pct = Math.min(96, 55 + cgProfile.interests.length * 2.5 + cgProfile.grades.length * 3 + (cgProfile.bio ? 12 : 0));
+  const pctR = Math.round(pct);
+  document.getElementById('cgPbarFill').style.width = pctR + '%';
+  document.getElementById('cgPbarPct').textContent = pctR + '%';
+  document.getElementById('cgPbarLbl').textContent = 'Profile strength';
+  document.getElementById('cgAiSub').textContent = 'Analysis complete · ' + new Date().toLocaleTimeString('en-KE',{hour:'2-digit',minute:'2-digit'});
+
+  if (gap.topMatches?.length) {
+    document.getElementById('cgDTopMatch').textContent = `${gap.topMatches[0].score}% · ${gap.topMatches[0].career}`;
+  }
+
+  btn.disabled = false;
+  btn.innerHTML = '✦ Regenerate My Report';
+}
+
+function cgPopulateStatic() {
+  const p = cgProfile;
+  const ini = p.name.split(' ').map(n=>n[0]).join('').substring(0,2).toUpperCase();
+  document.getElementById('cgDAvatar').textContent = ini || '?';
+  document.getElementById('cgDName').textContent = p.name;
+  document.getElementById('cgDSub').textContent = `${p.form} · ${p.county}`;
+  document.getElementById('cgDCurric').textContent = '📘 ' + p.curric;
+  document.getElementById('cgDashTitle').textContent = `Habari, ${p.name.split(' ')[0]}! 👋`;
+  document.getElementById('cgDashSub').textContent = 'Your AI career report is ready';
+  document.getElementById('cgDGoal').textContent = p.goal;
+  document.getElementById('cgDTopMatch').textContent = 'Analysing…';
+
+  // Chips
+  const cc = ['gold','green','sky','crimson','violet','gold','green','sky'];
+  document.getElementById('cgDChips').innerHTML = p.interests.slice(0,6).map((i,x)=>`<span class="cg-chip ${cc[x%cc.length]}">${i}</span>`).join('') || '<span style="color:#aaa;font-size:13px">No interests selected</span>';
+
+  // Grades
+  const gmap = {'A':['cg-sg-a','cg-sf-a',92],'A-':['cg-sg-a','cg-sf-a',85],'B+':['cg-sg-b','cg-sf-b',78],'B':['cg-sg-b','cg-sf-b',72],'B-':['cg-sg-b','cg-sf-b',67],'C+':['cg-sg-c','cg-sf-c',62],'C':['cg-sg-c','cg-sf-c',55],'C-':['cg-sg-c','cg-sf-c',48],'D':['cg-sg-c','cg-sf-c',40]};
+  document.getElementById('cgDGrades').innerHTML = p.grades.map(g => {
+    const key = g.grade.split(' ')[0];
+    const [gc, fc, w] = gmap[key] || ['cg-sg-c','cg-sf-c',50];
+    return `<div class="cg-subj-item"><div class="cg-subj-hdr"><span class="cg-subj-name">${g.subject}</span><span class="cg-subj-grade ${gc}">${key}</span></div><div class="cg-sbar"><div class="cg-sfill ${fc}" style="width:${w}%"></div></div></div>`;
+  }).join('');
+}
+
+function cgRenderInsight(text) {
+  const html = text.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>');
+  document.getElementById('cgAiInsight').innerHTML = `<div class="cg-ai-body">${html}</div>`;
+}
+
+function cgRenderRecs(recs) {
+  if (!recs.length) { document.getElementById('cgRecGrid').innerHTML = '<p style="color:#888;font-size:13px;padding:16px">Unable to load recommendations. Click "Regenerate" to try again.</p>'; return; }
+  const typeLabels = {career:'🎯 Career Path',skill:'🛠 Skill to Build',univ:'🏛 University Path',cert:'📜 Course & Cert'};
+  document.getElementById('cgRecGrid').innerHTML = recs.map(r => {
+    const click = r.careerId ? `cgOpenCareer('${r.careerId}')` : '';
+    return `<div class="cg-rec-card ${r.type}" ${click ? `onclick="${click}" style="cursor:pointer"` : ''}>
+      <div class="cg-rec-type">${typeLabels[r.type] || r.type}</div>
+      <div class="cg-rec-title">${r.title}</div>
+      <div class="cg-rec-desc">${r.desc}</div>
+      <span class="cg-rec-match">${r.match}</span>
+    </div>`;
+  }).join('');
+}
+
+function cgRenderGap(gap) {
+  const have = (gap.have || []).map(s=>`• ${s}`).join('<br>') || '• Analysing…';
+  const build = (gap.build || []).map(s=>`• ${s}`).join('<br>') || '• Analysing…';
+  document.getElementById('cgGapGrid').innerHTML = `
+    <div class="cg-gap-box have"><div class="cg-gap-box-lbl">✓ You have</div><div class="cg-gap-items">${have}</div></div>
+    <div class="cg-gap-box build"><div class="cg-gap-box-lbl">→ Build next</div><div class="cg-gap-items">${build}</div></div>`;
+}
+
+function cgRenderRings(matches) {
+  if (!matches.length) { document.getElementById('cgMatchRings').innerHTML = ''; return; }
+  const colours = [['#C8922A','#FDF0D5'],['#2A8A55','#D6EDE1'],['#1B5FA3','#DBE9F8']];
+  const circ = 2 * Math.PI * 24;
+  document.getElementById('cgMatchRings').innerHTML = matches.map((m,i) => {
+    const [stroke, bg] = colours[i % colours.length];
+    const off = circ - (m.score/100)*circ;
+    return `<div class="cg-match-item">
+      <div class="cg-ring-wrap">
+        <svg width="58" height="58" viewBox="0 0 58 58">
+          <circle class="cg-ring-bg" cx="29" cy="29" r="24"/>
+          <circle class="cg-ring-fill" cx="29" cy="29" r="24"
+            stroke="${stroke}" stroke-dasharray="${circ}" stroke-dashoffset="${off}"/>
+        </svg>
+        <div class="cg-ring-num">${m.score}%</div>
+      </div>
+      <div>
+        <div class="cg-match-name">${m.career}</div>
+        <div class="cg-match-why">${m.reason}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function cgRenderUni(paths) {
+  if (!paths.length) { document.getElementById('cgUniRecs').innerHTML = ''; return; }
+  document.getElementById('cgUniRecs').innerHTML = paths.map(p=>`
+    <div style="display:flex;align-items:flex-start;gap:12px;padding:13px;background:var(--cg-mist);border-radius:var(--radius-sm);margin-bottom:10px">
+      <div style="width:40px;height:40px;background:var(--cg-sky-lt);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">🏛</div>
+      <div>
+        <div style="font-family:var(--fd);font-weight:700;font-size:14px;color:var(--cg-ink)">${p.name}</div>
+        <div style="font-size:12px;color:var(--cg-sky);font-weight:600;margin-top:2px">${p.programme}</div>
+        <div style="font-size:12px;color:var(--cg-slate);margin-top:5px;line-height:1.5">${p.note}</div>
+      </div>
+    </div>`).join('');
+}
+
+function cgResetDash() {
+  document.getElementById('cgSetup').style.display = 'block';
+  document.getElementById('cgDash').style.display = 'none';
+  document.getElementById('cgGenBtn').disabled = false;
+  document.getElementById('cgGenBtn').innerHTML = '✦ Generate My AI Career Report';
+}
+
+// ── CAREER MODAL (from dashboard recs) ─────────────────────────
+function cgOpenCareer(id) {
+  const c = CG_CAREERS.find(x => x.id === id);
+  if (!c) return;
+  cgCurrentSomaCareerId = id;
+  document.getElementById('cgModalContent').innerHTML = `
+    <div style="font-size:10px;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;color:#bbb;margin-bottom:8px">${c.sector}</div>
+    <div style="font-family:var(--fd);font-size:22px;font-weight:800;color:var(--cg-ink);letter-spacing:-0.5px;margin-bottom:8px">${c.emoji} ${c.name}</div>
+    <div style="font-size:14px;color:var(--cg-slate);margin-bottom:16px;line-height:1.65">${c.desc}</div>
+    <div style="display:flex;gap:12px;margin-bottom:24px">
+      <span style="font-size:14px;font-weight:700;color:var(--cg-forest)">${c.salary}</span>
+      <span class="cg-chip green">${c.growth}</span>
+    </div>
+    <div style="font-family:var(--fd);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.4px;color:var(--cg-ink);margin-bottom:16px">Your Roadmap</div>
+    <div class="cg-roadmap">${c.roadmap.map((s,i)=>`
+      <div class="cg-roadmap-step">
+        <div class="cg-rs-num">${i+1}</div>
+        <div><div class="cg-rs-title">${s.t}</div><div class="cg-rs-body">${s.b}</div><span class="cg-rs-dur">${s.d}</span></div>
+      </div>`).join('')}
+    </div>
+    <div class="cg-ai-ask-section" style="margin-top:24px">
+      <div class="cg-ai-ask-title">Ask the AI ✦ <span>Career Chat</span></div>
+      ${cgRenderChatSugs(c)}
+      <div id="cgCareerAns" class="cg-ai-answer"></div>
+      <div class="cg-ai-q-row" style="margin-top:12px">
+        <input class="cg-ai-q-input" id="cgCareerQ" placeholder="Ask anything about ${c.name} in Kenya…" onkeydown="if(event.key==='Enter')cgAskCareer('${id}')">
+        <button class="cg-ai-q-btn" id="cgCareerQBtn" onclick="cgAskCareer('${id}')">↑</button>
+      </div>
+    </div>`;
+  document.getElementById('cgModalInner').style.maxWidth = '720px';
+  cgOpenModal();
+}
+
+function cgRenderChatSugs(c) {
+  const sugs = [`What does a ${c.name} earn after 5 years?`,`Which Kenyan companies hire ${c.name}s?`,`Is ${c.name} good if I want to work globally?`,`What's the biggest challenge in this career?`];
+  return `<div class="cg-ai-q-sugs">${sugs.map(s=>`<button class="cg-ai-q-sug" onclick="cgQuickAsk('${s.replace(/'/g,"\\'")}','${c.id}')">${s}</button>`).join('')}</div>`;
+}
+
+async function cgAskCareer(careerId) {
+  const q = document.getElementById('cgCareerQ').value.trim();
+  if (!q) return;
+  cgQuickAsk(q, careerId);
+  document.getElementById('cgCareerQ').value = '';
+}
+
+async function cgQuickAsk(question, careerId) {
+  const c = CG_CAREERS.find(x => x.id === careerId);
+  const ansEl = document.getElementById('cgCareerAns');
+  const btn = document.getElementById('cgCareerQBtn');
+  if (!c || !ansEl || !btn) return;
+  btn.disabled = true;
+  ansEl.className = 'cg-ai-answer visible';
+  ansEl.innerHTML = `<div class="cg-thinking">Thinking <div class="cg-dots"><span>•</span><span>•</span><span>•</span></div></div>`;
+
+  const profileCtx = cgProfile.name ? `The student is ${cgProfile.name} from ${cgProfile.county}, doing ${cgProfile.curric}, interested in: ${cgProfile.interests.join(', ')}.` : '';
+
+  const reply = await cgApiCall([{role:'user',content:`You are Career Genie, an AI career advisor for Kenyan high school students. Career in focus: ${c.name} (${c.sector}).
+
+${profileCtx}
+
+Answer this question in 3–4 sentences with Kenya-specific detail. Use **bold** for key terms. Mention real organisations, salary figures, or resources where useful. Be warm and encouraging.
+
+Question: ${question}`}], 380);
+
+  ansEl.innerHTML = reply.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>');
+  btn.disabled = false;
+}
+
+// ── SOMA ────────────────────────────────────────────────────────
+function cgRenderSoma() {
+  let careers = CG_CAREERS;
+  if (cgSomaCatFilter !== 'all') careers = careers.filter(c => c.cat === cgSomaCatFilter);
+  if (cgSomaSubjectFilter !== 'all') careers = careers.filter(c => c.subjects.includes(cgSomaSubjectFilter));
+
+  document.getElementById('cgSomaCards').innerHTML = careers.map(c => `
+    <div class="cg-soma-card" onclick="cgOpenSomaDeep('${c.id}')">
+      <div class="cg-soma-card-inner">
+        <div class="cg-soma-card-visual" style="background:var(--cg-forest)">
+          <div class="cg-soma-card-emoji">${c.emoji}</div>
+          <div class="cg-soma-card-category">${c.sector}</div>
+          <div class="cg-soma-card-subj">${c.subject}</div>
+        </div>
+        <div class="cg-soma-card-body">
+          <div class="cg-soma-card-title">${c.name}</div>
+          <div class="cg-soma-card-desc">${c.desc}</div>
+          <div class="cg-soma-card-meta">
+            <span class="cg-soma-salary">${c.salary}</span>
+            <span class="cg-soma-growth">${c.growth}</span>
+            <button class="cg-soma-read-btn">Deep dive →</button>
+          </div>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+function cgSomaFilter(subj, btn) {
+  document.querySelectorAll('.cg-soma-tab').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+  cgSomaSubjectFilter = subj;
+  cgRenderSoma();
+}
+
+function cgSomaSector(cat, btn) {
+  document.querySelectorAll('.cg-soma-fopt').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+  cgSomaCatFilter = cat;
+  cgRenderSoma();
+}
+
+function cgOpenSomaDeep(id) {
+  const c = CG_CAREERS.find(x => x.id === id);
+  if (!c) return;
+  cgCurrentSomaCareerId = id;
+  document.getElementById('cgModalContent').innerHTML = `
+    <div class="cg-soma-dive-hero">
+      <div class="cg-soma-dive-icon">${c.emoji}</div>
+      <div>
+        <div class="cg-soma-dive-label">${c.sector} · ${c.salary}</div>
+        <div class="cg-soma-dive-title">${c.name}</div>
+        <div class="cg-soma-dive-sub">${c.desc}</div>
+      </div>
+    </div>
+
+    <div class="cg-soma-section">
+      <h3>What subjects do you need?</h3>
+      <p>${c.subjects_needed}</p>
+      <div class="cg-soma-subjects" style="margin-top:10px">${c.subjects.map(s=>`<span class="cg-chip sky">${s}</span>`).join('')}</div>
+    </div>
+
+    <div class="cg-soma-section">
+      <h3>A day in the life</h3>
+      <div class="cg-day-timeline">${(c.dayLife || []).map(d => {
+        const parts = d.split(': ');
+        return `<div class="cg-day-item"><div class="cg-day-time">${parts[0]}</div><div class="cg-day-task">${parts.slice(1).join(': ')}</div></div>`;
+      }).join('')}</div>
+    </div>
+
+    <div class="cg-soma-section">
+      <h3>Your roadmap to becoming a ${c.name}</h3>
+      <div class="cg-roadmap">${c.roadmap.map((s,i)=>`
+        <div class="cg-roadmap-step">
+          <div class="cg-rs-num">${i+1}</div>
+          <div><div class="cg-rs-title">${s.t}</div><div class="cg-rs-body">${s.b}</div><span class="cg-rs-dur">${s.d}</span></div>
+        </div>`).join('')}
+      </div>
+    </div>
+
+    <div class="cg-ai-ask-section">
+      <div class="cg-ai-ask-title">Ask the AI about this career ✦ <span>Soma AI</span></div>
+      <div class="cg-ai-q-sugs">
+        <button class="cg-ai-q-sug" onclick="cgQuickAsk('What does a ${c.name} do every day in Kenya?','${id}')">What do they do every day?</button>
+        <button class="cg-ai-q-sug" onclick="cgQuickAsk('What is the career growth path for a ${c.name} in Kenya?','${id}')">Career growth path?</button>
+        <button class="cg-ai-q-sug" onclick="cgQuickAsk('What salary can I expect as a ${c.name} in Nairobi after 5 years?','${id}')">Salary after 5 years?</button>
+        <button class="cg-ai-q-sug" onclick="cgQuickAsk('Is ${c.name} a good career for someone who wants to work internationally from Kenya?','${id}')">Good for international work?</button>
+      </div>
+      <div id="cgCareerAns" class="cg-ai-answer"></div>
+      <div class="cg-ai-q-row" style="margin-top:12px">
+        <input class="cg-ai-q-input" id="cgCareerQ" placeholder="Ask anything…" onkeydown="if(event.key==='Enter')cgAskCareer('${id}')">
+        <button class="cg-ai-q-btn" id="cgCareerQBtn" onclick="cgAskCareer('${id}')">↑</button>
+      </div>
+    </div>`;
+  document.getElementById('cgModalInner').style.maxWidth = '760px';
+  cgOpenModal();
+}
+
+// ── BLOG ────────────────────────────────────────────────────────
+function cgRenderBlog(filter) {
+  if (filter) cgBlogFilter = filter;
+  const posts = cgBlogFilter === 'all' ? CG_BLOG_POSTS : CG_BLOG_POSTS.filter(p => p.cat === cgBlogFilter);
+  document.getElementById('cgBlogPosts').innerHTML = posts.map(p => `
+    <div class="cg-blog-post" onclick="cgOpenBlogPost('${p.id}')">
+      <div class="cg-blog-post-thumb" style="background:${p.thumbBg}">${p.thumb}</div>
+      <div>
+        <div class="cg-blog-post-cat">${p.cat.toUpperCase()}</div>
+        <div class="cg-blog-post-title">${p.title}</div>
+        <div class="cg-blog-post-excerpt">${p.excerpt}</div>
+        <div class="cg-blog-post-meta">By ${p.author} · ${p.date} · ${p.read} read</div>
+      </div>
+    </div>`).join('');
+}
+
+function cgFilterBlog(cat, btn) {
+  document.querySelectorAll('.cg-blog-cat').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+  cgRenderBlog(cat);
+}
+
+const CG_BLOG_CONTENT = {
+  featured: {
+    title: "The CBC Parent's Complete Guide to Career Planning in 2025",
+    body: `<p style="font-size:15px;color:var(--cg-slate);line-height:1.8;margin-bottom:16px">Kenya's Competency-Based Curriculum (CBC) isn't just a new set of textbooks — it's a fundamental reimagining of how we think about education and career readiness. If you grew up under 8-4-4, much of what you "know" about how your child's future will unfold needs to be updated.</p>
+    <h3 style="font-family:var(--fd);font-size:18px;font-weight:700;color:var(--cg-ink);margin:24px 0 10px">What actually changed?</h3>
+    <p style="font-size:14px;color:var(--cg-slate);line-height:1.8;margin-bottom:16px">Under 8-4-4, a student's KCSE grade was the primary gate to university. Under CBC, the system is designed to value competencies — what students can <em>do</em>, not just what they can recall in an exam. This has profound implications for career planning. A student who struggled with memorisation but excels at building things, presenting ideas, or solving community problems may now have a clearer pathway than before.</p>
+    <h3 style="font-family:var(--fd);font-size:18px;font-weight:700;color:var(--cg-ink);margin:24px 0 10px">The three pathways</h3>
+    <p style="font-size:14px;color:var(--cg-slate);line-height:1.8;margin-bottom:16px">CBC Grade 12 graduates will exit through one of three pathways: <strong>University</strong>, <strong>TVET (Technical and Vocational Education and Training)</strong>, or <strong>Social Health Authority-linked community pathways</strong>. All three can lead to excellent careers. The key advice: don't dismiss TVET — top TVET graduates in welding, automotive, healthcare support, and ICT are earning more than some university graduates within five years of completing their training.</p>
+    <h3 style="font-family:var(--fd);font-size:18px;font-weight:700;color:var(--cg-ink);margin:24px 0 10px">What you should do right now</h3>
+    <p style="font-size:14px;color:var(--cg-slate);line-height:1.8;margin-bottom:8px">✅ Have a curiosity conversation — ask what your child <em>enjoys</em>, not what they're good at. Often these align, but when they don't, the enjoyment wins over time.</p>
+    <p style="font-size:14px;color:var(--cg-slate);line-height:1.8;margin-bottom:8px">✅ Use Career Genie's Soma section to explore careers together — many parents are surprised by what's possible now.</p>
+    <p style="font-size:14px;color:var(--cg-slate);line-height:1.8;margin-bottom:8px">✅ Don't anchor on specific university names — the Kenyan employer market has changed and many top employers now hire from multiple institutions.</p>
+    <p style="font-size:14px;color:var(--cg-slate);line-height:1.8;margin-bottom:8px">✅ Research HELB early — bursaries and scholarships are available at all public universities and many private ones.</p>`
+  }
+};
+
+function cgOpenBlogPost(id) {
+  const post = id === 'featured' ? {title: CG_BLOG_CONTENT.featured.title} : CG_BLOG_POSTS.find(p => p.id === id);
+  if (!post) return;
+  const isF = id === 'featured';
+  document.getElementById('cgModalContent').innerHTML = isF
+    ? `<div style="margin-bottom:4px;font-size:11px;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;color:var(--cg-sky)">PARENTS BLOG · MUST READ</div><div style="font-family:var(--fd);font-size:26px;font-weight:800;color:var(--cg-ink);letter-spacing:-0.8px;line-height:1.15;margin-bottom:20px">${CG_BLOG_CONTENT.featured.title}</div>${CG_BLOG_CONTENT.featured.body}
+    <div class="cg-ai-ask-section" style="margin-top:28px">
+      <div class="cg-ai-ask-title">Ask the AI about this topic ✦ <span>Parent Q&A</span></div>
+      <div class="cg-ai-q-sugs">
+        <button class="cg-ai-q-sug" onclick="cgParentAsk('What are the main differences between CBC and 8-4-4 for career planning?')">CBC vs 8-4-4 differences?</button>
+        <button class="cg-ai-q-sug" onclick="cgParentAsk('Is TVET a good option for my child in Kenya?')">Is TVET a good option?</button>
+        <button class="cg-ai-q-sug" onclick="cgParentAsk('How do I support my child who does not know what career they want?')">Child doesn't know what they want?</button>
+      </div>
+      <div id="cgParentAns" class="cg-ai-answer"></div>
+      <div class="cg-ai-q-row" style="margin-top:12px">
+        <input class="cg-ai-q-input" id="cgParentQ" placeholder="Ask a career parenting question…" onkeydown="if(event.key==='Enter')cgParentAskInput()">
+        <button class="cg-ai-q-btn" id="cgParentQBtn" onclick="cgParentAskInput()">↑</button>
+      </div>
+    </div>`
+    : `<div style="margin-bottom:4px;font-size:11px;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;color:var(--cg-sky)">${post.cat?.toUpperCase()} · ${post.read || ''} READ</div>
+       <div style="font-family:var(--fd);font-size:24px;font-weight:800;color:var(--cg-ink);letter-spacing:-0.5px;line-height:1.2;margin-bottom:16px">${post.title}</div>
+       <p style="font-size:15px;color:var(--cg-slate);line-height:1.8;margin-bottom:20px">${post.excerpt}</p>
+       <div style="background:var(--cg-mist);border-radius:var(--radius-sm);padding:20px;margin-bottom:24px">
+         <p style="font-size:13px;color:var(--cg-slate);font-style:italic">Full article available — ask the AI any question about this topic below.</p>
+       </div>
+       <div class="cg-ai-ask-section">
+         <div class="cg-ai-ask-title">Ask the AI about this topic ✦ <span>Parent Q&A</span></div>
+         <div id="cgParentAns" class="cg-ai-answer"></div>
+         <div class="cg-ai-q-row">
+           <input class="cg-ai-q-input" id="cgParentQ" placeholder="Ask a question about ${post.title}…" onkeydown="if(event.key==='Enter')cgParentAskInput()">
+           <button class="cg-ai-q-btn" id="cgParentQBtn" onclick="cgParentAskInput()">↑</button>
+         </div>
+       </div>`;
+  document.getElementById('cgModalInner').style.maxWidth = '720px';
+  cgOpenModal();
+}
+
+async function cgParentAsk(question) {
+  const ansEl = document.getElementById('cgParentAns');
+  const btn = document.getElementById('cgParentQBtn');
+  if (!ansEl) return;
+  btn && (btn.disabled = true);
+  ansEl.className = 'cg-ai-answer visible';
+  ansEl.innerHTML = `<div class="cg-thinking">Thinking <div class="cg-dots"><span>•</span><span>•</span><span>•</span></div></div>`;
+
+  const reply = await cgApiCall([{role:'user',content:`You are Career Genie's parent advisor — a friendly, knowledgeable guide for Kenyan parents navigating their children's education and career planning. You understand Kenya's CBC curriculum, KCSE system, university pathways, HELB, TVET options, and the current job market.
+
+Answer in 4–5 sentences with practical, Kenya-specific advice. Use **bold** for key terms. Be warm, reassuring and realistic.
+
+Parent question: ${question}`}], 400);
+
+  if (ansEl) ansEl.innerHTML = reply.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>');
+  btn && (btn.disabled = false);
+}
+
+async function cgParentAskInput() {
+  const q = document.getElementById('cgParentQ')?.value.trim();
+  if (!q) return;
+  document.getElementById('cgParentQ').value = '';
+  cgParentAsk(q);
+}
+
+// ── MODAL ───────────────────────────────────────────────────────
+function cgOpenModal() {
+  document.getElementById('cgModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function cgCloseModal() {
+  document.getElementById('cgModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function cgCloseModalOut(e) {
+  if (e.target === document.getElementById('cgModal')) cgCloseModal();
+}
+
+// ── BOOT ────────────────────────────────────────────────────────
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    const l = document.getElementById('cg-loader');
+    l?.classList.add('out');
+    setTimeout(() => l && (l.style.display = 'none'), 800);
+  }, 2400);
+  cgRenderSoma();
+  cgRenderBlog();
+});
+</script>
+</html>
